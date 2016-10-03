@@ -1,0 +1,6 @@
+:%s/pattern/string/g：全屏替换
+*：clipboard寄存器
+di"：删除""内内容
+ysw(：外部添加括号
+cs('：外部替换''为()
+:Unite bookmark:memo-develop：Unite bookmark命令
