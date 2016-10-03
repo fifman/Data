@@ -1,0 +1,4 @@
+git remote add github git@github.com:fifman/Data.git：添加远程仓库关联
+git push -u github master：推送文件到远程仓库
+git add -A：全部添加
+git commit -m '提交注释'：提交
