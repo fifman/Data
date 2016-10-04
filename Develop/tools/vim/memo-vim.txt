@@ -4,3 +4,7 @@ di"：删除""内内容
 ysw(：外部添加括号
 cs('：外部替换''为()
 :Unite bookmark:memo-develop：Unite bookmark命令
+z 卷动
+;mn desktop
+;bd buffer close
+di" delete in "

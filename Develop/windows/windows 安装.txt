@@ -1,0 +1,15 @@
+git
+curl
+python
+ActivePerl
+vim
+
+cmake
+libclang
+
+git clone https://github.com/VundleVim/Vundle.vim.git %USERPROFILE%/vimfiles/bundle/Vundle.vim
+
+
+CMake Error at CMakeLists.txt:26 (project):
+  No CMAKE_C_COMPILER could be found.
+安装VS社区版默认没有带compiler，需要新建c++项目时出提示安装。

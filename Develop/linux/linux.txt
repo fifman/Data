@@ -1,0 +1,23 @@
+安装java
+
+    sudo add-apt-repository ppa:webupd8team/java
+　　sudo apt-get update
+　　sudo apt-get install oracle-java8-installer
+　　sudo apt-get install oracle-java8-set-default
+
+
+linux分区：
+
+/home 放置用户自己的文件，需要大
+/var 放置各类变化频繁的服务器动态文件和数据，例如服务、数据库的数据。需要大
+/srv 服务器静态文件和数据。中
+/usr和/opt 放置软件，需要中
+/boot启动文件，小 500M ext3
+/swap 两倍内存 机械硬盘 swap 10G
+/ 根分区：15G 
+/tmp 5G 系统重启会擦除
+
+其余格式ext4
+
+除了boot主分区外其它逻辑分区
+
