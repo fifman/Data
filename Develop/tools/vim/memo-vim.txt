@@ -8,3 +8,4 @@ z 卷动
 ;mn desktop
 ;bd buffer close
 di" delete in "
+:Tabularize /{regular expression}：以regular expression作为分隔符，对齐。命令可简化为:Tab

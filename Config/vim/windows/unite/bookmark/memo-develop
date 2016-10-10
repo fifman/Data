@@ -1,0 +1,8 @@
+0.1.0
+init-mongodb	D:/00Data/Develop/mongodb/init-mongodb.js	30	^db2\.accounts\.bank\.ccb\.insert({ _id: 1, card_no: 4895920340414134, expire_year: 2020, expire_month: 9, owner_name: \"FENG YI CHENG\", security_code: 519, type: \"visa\" })$
+mongodb	D:/00Data/Develop/mongodb/memo-mongodb.txt	1	^在windows环境下需要设置环境变量$
+init-windows	D:/00Data/Develop/cmd/initenv.bat	27	^choco install fbreader$
+mongodb	D:/00Data/Develop/mongodb/memo-mongodb.txt	1	^在windows环境下需要设置环境变量$
+init-linux	d:/00Data/Develop/shell/initenv.sh	23	^rm -rf rename$
+vim	D:/00Data/Develop/tools/vim/memo-vim.txt	11	^:Tabularize /{regular expression}：以regular expression作为分隔符，对齐。命令可简化为:Tab$
+powershell	D:/00Data/Develop/shell/memo-powershell.txt	1	^快捷键：$
