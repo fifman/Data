@@ -1,4 +1,5 @@
 0.1.0
+js	D:/00Data/Develop/javascript/memo-javascript.txt	1	^javascript补全需要在用户目录设置\.tern-config或者在项目根目录设置\.tern-project文件。$
 init-mongodb	D:/00Data/Develop/mongodb/init-mongodb.js	30	^db2\.accounts\.bank\.ccb\.insert({ _id: 1, card_no: 4895920340414134, expire_year: 2020, expire_month: 9, owner_name: \"FENG YI CHENG\", security_code: 519, type: \"visa\" })$
 mongodb	D:/00Data/Develop/mongodb/memo-mongodb.txt	1	^在windows环境下需要设置环境变量$
 init-windows	D:/00Data/Develop/cmd/initenv.bat	27	^choco install fbreader$

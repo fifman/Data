@@ -33,3 +33,4 @@ cd D:\00Data
 git init
 git remote add github git@github.com:fifman/Data.git
 git pull github master
+git config --global credential.helper wincred

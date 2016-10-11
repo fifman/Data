@@ -1,0 +1,1 @@
+javascript补全需要在用户目录设置.tern-config或者在项目根目录设置.tern-project文件。
