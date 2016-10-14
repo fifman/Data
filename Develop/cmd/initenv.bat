@@ -1,3 +1,7 @@
+Set-ExecutionPolicy -ExecutionPolicy RemoteSigned
+
+
+
 git config --global user.name "fifman"
 git config --global user.email "1264380449@qq.com"
 
