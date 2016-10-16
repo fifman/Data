@@ -9,3 +9,8 @@ z 卷动
 ;bd buffer close
 di" delete in "
 :Tabularize /{regular expression}：以regular expression作为分隔符，对齐。命令可简化为:Tab
+
+c系列需要在项目根部添加配置文件
+js系列需要在项目根部添加配置文件
+
+
