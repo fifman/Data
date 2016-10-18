@@ -1,0 +1,35 @@
+1. 基础：
+    gradle
+    结构：
+        按照模块划分：
+            android应用模块
+            库模块
+            google app引擎模块
+        模块结构：
+            manifests：包含 AndroidManifest.xml 文件。
+            java：包含 Java 源代码文件，包括 JUnit 测试代码。
+            res：包含所有非代码资源，例如 XML 布局、UI 字符串和位图图像。
+
+2. 流行框架：
+    jQuery Mobile (28.6 percent)
+    PhoneGap (17.9)
+    Sencha Touch (7.9)
+    Dojo Mobile (4.9)
+    Titanium (2.8).
+
+3. 规范：
+    android app包含在apk压缩包中
+    两类app:
+        ndk app: 通过jni调用native code（c/c++代码）。通常为游戏软件
+        sdk app: 调java code，大部分app
+
+4. 原理：
+    android OS结构：
+        linux kernel
+        dalvik：java虚拟机，运行java代码
+
+5. 基础组件：
+    Activity：UI组件
+    Service：后台服务
+    SQLite: 本地数据库
+    BroadcastReceiver: 消息传播
