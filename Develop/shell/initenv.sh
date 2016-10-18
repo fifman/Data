@@ -31,5 +31,24 @@ sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv EA312927
 echo "deb http://repo.mongodb.org/apt/ubuntu xenial/mongodb-org/3.2 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-3.2.list
 sudo apt-get update
 sudo apt-get install -y mongodb-org
-sudo service mongod start
+#sudo service mongod start
+# enable service to start on boot
+sudo systemctl enable mongod.service
 
+# remote desktop enable
+sudo apt-get install tightvncserver
+sudo apt-get install xrdp
+sudo apt-get install xfce4
+echo xfce4-session >~/.xsession
+
+sudo vim /etc/xrdp/startwm.sh
+# need to input the following content:
+##!/bin/sh
+
+#if [ -r /etc/default/locale ]; then
+  #. /etc/default/locale
+  #export LANG LANGUAGE
+#fi
+
+#startxfce4
+sudo service xrdp restart
