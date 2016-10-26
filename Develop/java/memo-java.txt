@@ -75,3 +75,39 @@ continue»áÖ´ÐÐstepÓï¾ä¡£breakÔò²»Ö´ÐÐ¡£Èç¹ûÊÇcontinueÉÏ¼¶±êÇ©£¬Ôòµ×²ãstepÓï¾ä²»Ö
 
 switch:
 Ö»ÄÜ½ÓÊÜÕûÊýÖµ»òÃ¶¾Ù¡£³ýÁËdefaultÍâ£¬ÆäÓàcase·ÖÖ§Òª¼Óbreak£¬·ñÔò»á½Ó×ÅÖ´ÐÐÏÂÃæµÄcaseÓï¾ä¡£
+
+·½·¨ÖØÔØ£ºÍ¬·½·¨Ãû£¬²»Í¬²ÎÊý¡£
+Á½¸ö·½·¨²ÎÊý·Ö±ðÎª¸¸×ÓÀà£¬ÔòÓÅÏÈ×ÓÀà¡£
+
+¹¹ÔìÆ÷µ÷¹¹ÔìÆ÷Ê±£¬±»µ÷ÓÃ¹¹ÔìÆ÷±ØÐë·ÅÔÚ·½·¨Ìå×îÇ°¡£
+
+finalize():
+À¬»ø»ØÊÕÆ÷×¼±¸ºÃÊÍ·Å¶ÔÏóµÄ´æ´¢¿Õ¼äÊ±£¬»áÏÈµ÷ÓÃfinalize()·½·¨£¬È»ºóÖ´ÐÐÀ¬»ø»ØÊÕ¡£
+¶ÔÏó²»Ò»¶¨±»À¬»ø»ØÊÕ£¬Ö»ÓÐÀ¬»ø»ØÊÕÖ´ÐÐÁË£¬finalize()·½·¨²Å±»µ÷ÓÃ¡£
+java´´½¨µÄ¶ÔÏó¶¼»á±»À¬»ø»ØÊÕ£¬ËùÒÔÐèÒªÊ¹ÓÃfinalize()µÄÇé¿ö£¬ºÜ¶àÊ±ºòÊÇÐèÒªµ÷ÓÃ¡°±¾µØ·½·¨¡±Ê±¡£¼´javaµ÷ÓÃ·Çjava·½·¨Ê±¡£
+¾ø¶Ô²»ÄÜÖ±½Óµ÷ÓÃfinalize()¡£´Ë·½·¨ÊÇÎªÀ¬»ø»ØÊÕÆ÷µ÷ÓÃµÄ¡£
+
+³õÊ¼»¯£º
+ÀàÀï¶¨ÒåÊôÐÔÎª¶ÔÏóÒýÓÃÊ±£¬³õÊ¼ÖµÄ¬ÈÏÎªNull¡£
+ÊôÐÔ³õÊ¼»¯Ê±´æÔÚË³Ðò£¬Òª×¢ÒâÏòÇ°ÒýÓÃ¡£
+ÊôÐÔ×Ô¶¯³õÊ¼»¯ÔÚ¹¹ÔìÆ÷³õÊ¼»¯Ç°·¢Éú£¬¼´Ê¹ËüÃÇµÄ¶¨ÒåÎ»ÖÃ¼ÐÔÓÔÚ·½·¨Ö®¼ä¡£
+Ö»ÓÐ·ÃÎÊÀàÊ±²Å½øÐÐÀà¼ÓÔØ¡£¾²Ì¬³õÊ¼»¯ÔÚÀà¼ÓÔØµÄÊ±ºòÖ´ÐÐ£¬Ö»Ö´ÐÐÒ»´Î¡£×îÏÈÖ´ÐÐ¡£
+¾²Ì¬¿éºÍ¾²Ì¬ÊôÐÔÀàËÆ£¬Ö»Ö´ÐÐÒ»´Î¡£
+javaÖÐÍ¬Ñù¿ÉÒÔÓÐ·Ç¾²Ì¬¿é¡£ÔÚ¹¹ÔìÆ÷Ç°£¬ÊôÐÔ×Ô¶¯³õÊ¼»¯ºóÖ´ÐÐ¡£
+
+Êý×é£º
+int[] a;
+int a[];Á½ÖÖ¸ñÊ½¶¼¿ÉÒÔ¡£
+Ö»ÓÐ³õÊ¼»¯Ê±£¬¿ÉÒÔÊ¹ÓÃ±í´ïÊ½{}¡£Èçint[] a =
+{1,2,3};±í´ïÊ½±ØÐëºÍ¶¨ÒåÀàÐÍint[]Ò»ÆðÊ¹ÓÃ¡£new int[5]ÀàËÆ¡£µ«new
+int[]{1,2}ÄÜÔÚÈÎºÎÇé¿öÏÂÊ¹ÓÃ¡£
+Êý×é´«µÝÊÇÒýÓÃ´«µÝ¡£
+·Ç»ù±¾ÀàÐÍ¶ÔÏóÊý×éÊÇÒ»¸öÒýÓÃÊý×é¡£
+»ù±¾ÀàÐÍÊý×énewÁËºó»á×Ô¶¯³õÊ¼»¯¡£
+
+¿É±ä²ÎÊýÁÐ±í£º
+Èç¹û´«µÄ±¾ÉíÊÇÊý×é£¬ÔòÖ±½ÓÊ¹ÓÃÊý×é¡£
+Èç¹û´«µÄÊÇÒ»×éÖµ£¬ÔòÏÈ½«ÖµÆ´×°³ÉÊý×é¡£
+¿ÉÒÔ²»´«Öµ¡£´ËÊ±Éú³ÉÒ»¸ö³¤¶ÈÎª0µÄÊý×é£¬¶ø²»ÊÇnull¡£
+¿É±ä²ÎÊý¿ÉÒÔºÍÒ»°ã²ÎÊý»ìºÏÊ¹ÓÃ¡£µ«ËÆºõÖ»ÄÜ·Å×îºó¡£
+¿É±äµ¥ÊýÖØÔØ¿ÉÄÜÔì³ÉÎÊÌâ£¬ÐèÒª×¢Òâ¡£ÓÈÆäÔÚ²ÎÊý¿ÉÎª¿ÕµÄÏÖ×´ÏÂ¡£
