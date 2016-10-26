@@ -1,0 +1,10 @@
+0.1.0
+java	/Users/fifman/Data/Develop/java/memo-java.txt	1	^后期绑定：$
+js	/Users/fifman/Data/Develop/javascript/memo-javascript.txt	1	^javascript补全需要在用户目录设置\.tern-config或者在项目根目录设置\.tern-project文件。$
+init-mongodb	/Users/fifman/Data/Develop/mongodb/init-mongodb.js	30	^db2\.accounts\.bank\.ccb\.insert({ _id: 1, card_no: 4895920340414134, expire_year: 2020, expire_month: 9, owner_name: \"FENG YI CHENG\", security_code: 519, type: \"visa\" })$
+mongodb	/Users/fifman/Data/Develop/mongodb/memo-mongodb.txt	1	^在windows环境下需要设置环境变量$
+init-windows	/Users/fifman/Data/Develop/cmd/initenv.bat	27	^choco install fbreader$
+mongodb	/Users/fifman/Data/Develop/mongodb/memo-mongodb.txt	1	^在windows环境下需要设置环境变量$
+init-linux	/Users/fifman/Data/Develop/shell/initenv.sh	23	^rm -rf rename$
+vim	/Users/fifman/Data/Develop/tools/vim/memo-vim.txt	11	^:Tabularize /{regular expression}：以regular expression作为分隔符，对齐。命令可简化为:Tab$
+powershell	/Users/fifman/Data/Develop/shell/memo-powershell.txt	1	^快捷键：$
