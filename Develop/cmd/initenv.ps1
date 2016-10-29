@@ -34,7 +34,7 @@ choco install fbreader
 
 rem install data git repository
 mkdir D:\00Data
-D:
+
 cd D:\00Data
 git init
 git remote add github git@github.com:fifman/Data.git
