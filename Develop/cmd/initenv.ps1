@@ -5,6 +5,8 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned
 git config --global user.name "fifman"
 git config --global user.email "1264380449@qq.com"
 
+choco install vim-tux
+
 git clone https://github.com/VundleVim/Vundle.vim.git %USERPROFILE%/vimfiles/bundle/Vundle.vim
 
 choco install cmake
