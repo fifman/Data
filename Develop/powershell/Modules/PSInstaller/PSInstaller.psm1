@@ -51,18 +51,11 @@ function Install-Ag {
 }
 
 
-
-
-
-
-
 function Install-YCM {
     choco install 7zip
     cd ~\vimfiles\bundle\YouCompleteMe
     python install.py --clang-completer --tern-completer
-
 }
-
 
 
 function Install-Rename {
