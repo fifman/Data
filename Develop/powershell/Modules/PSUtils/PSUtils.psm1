@@ -10,7 +10,7 @@ function Collect-All ($type) {
         $null {$Categoery = "Function", "Alias", "Cmdlet"; Break}
     }
     return -join (
-        Get-Help * | where -property "Category" -in $Categoery | foreach {$_.name+" "}
+        Get-Help * | where -property "Category" -in $Categoery | foreach {$_.name + " "}
     )
 }
 

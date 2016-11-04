@@ -2,6 +2,8 @@
 $devHome = "D:\00Data\Develop"
 $devInstall = "D:\10bin";
 
+rem "test dosbatch file syntax!"
+
 function Set-PS-Environment {
     Set-ExecutionPolicy -ExecutionPolicy RemoteSigned
     rm -fo $PROFILE.CurrentUserAllHosts
