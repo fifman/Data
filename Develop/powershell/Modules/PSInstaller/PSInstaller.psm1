@@ -41,7 +41,7 @@ function Install-Vim {
     choco install vim-tux
     git clone https://github.com/VundleVim/Vundle.vim.git ~\vimfiles\bundle\Vundle.vim
     choco install ctags
-    vim -c ":PluginInstall" -c ":qa"
+    vim -c ":PluginInstall" -c ":qa!"
 }
 
 function Install-Ag {
