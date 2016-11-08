@@ -11,5 +11,36 @@ js标识符（命名可用字符）：
 
 {}：包裹代码块，把多条语句包括起来。
 
+变量：
+    js变量是松散类型的，即可以保存任何类型的数据。
+    var标识局部变量声明。不加var则变成全局变量。（不推荐）
 
+typeof:
+    返回值（字符串）：
+        undefined, boolean, string, number, object, function
+    是操作符，可以加括号也可以不加，如：
+        typeof 95
+        typeof (95)
+        typeof(95)
+    特殊情况：
+        typeof null = "object"
+        typeof undefined = "undefined"
+        typeof {正则表达式} = "function" 或
+"object"，根据浏览器不同而定（主流为返回"object"。"function"多为老版本）
+
+undefined及未声明：
+    声明但未赋值：undefined
+    undefined变量可操作，未声明变量只可以进行typeof操作，否则抛出错误。
+    但是，typeof {未声明变量} = undefined。容易误解
+    null == undefined
+
+boolean：
+    ECMAScript中所有类型的值都有与boolean值等价的值。任何类型的值都可以通过调用Boolean()，转型为bool值。
+
+     Boolean()   |         true                           false
+-----------------|------------------------------------------------------------------------
+     String      |         非空                           ""（空字符串，长度为0）
+     Object      |         非空对象                       null
+     undefined   |         n/a                            undefined
+     Number      |         非零值（包含无穷大）           0和NaN
 
