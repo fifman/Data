@@ -42,7 +42,7 @@ boolean：
          String      |         非空                           ""（空字符串，长度为0）
          Object      |         非空对象                       null
          undefined   |         NaN                            undefined
-         Number      |         非零值（包含无穷大）           0和NaN
+         Number      |         非零值（包含+-Infinity）           0和NaN
 
 Number：
     八进制：
@@ -105,4 +105,146 @@ Number.MAX_VALUE，超出则为Infinity。可用isFinite()判断。
         字符串为整数时，返回整数
 
 String：
-    
+    转义：  | 
+------------|---------------------------------------------------------------------------------------
+     \n     |      换行
+     \t     |      制表
+     \b     |      空格
+     \r     |      回车
+     \f     |      进纸
+     \\     |      斜杠\
+     \'     |      单引号
+     \"     |      双引号
+     \xnn   |      十六进制码nn表示的一个字符（n在0-F间），例如\x41="A"
+     \unnnn |      十六进制代码表示的一个unicode字符
+
+    length属性：
+        如果字符串包含双字节字符，则length可能不会精确返回字符数目
+
+    字符串是不可改变的。改变变量值会销毁原字符串。
+
+    toString():
+        Number, Bool, Object, String 有 toString()方法，null和undefined没有。
+        参数：n进制基数，仅用于数值，返回n进制的数值字符串。例如10.toString(8)="12".
+        转型函数String(x)：参数x有toString()方法时，调用。否则，返回null或者undefined。
+
+Object：
+    初始化：var x = new Object() 或者 var x = new Object，括号可省略但不推荐！
+    方法：                               |
+-----------------------------------------|----------------------------------------------------------
+     Constructor                         |       保存创建当前对象的函数
+     hasOwnProperty(propertyName)        |       属性在实例中是否存在
+     isPrototypeOf(object)               |       object是否是调用对象的原型
+     propertyIsEnumerable(propertyName)  |       检查给定属性是否能用for-in枚举
+     toLocaleString()                    |       返回对象字符串表示
+     toString()                          |       返回对象字符串表示
+     valueOf()                           |       返回对象的字符串、数值、或bool值表示。
+
+单元操作符：
+    前置、后置++：
+        前置++语句求值前优先执行，后置++语句求值后执行。
+        ++和--可作用于所有值：
+         ++                    |     对应数值                               |     计算结果
+-------------------------------|--------------------------------------------|-----------------------
+         Number                |     Number                                 |     Number+1
+         true                  |     1                                      |     2
+         false                 |     0                                      |     1
+         "11"（数字字符串）    |     对应数字                               |     数字+1
+         "xx"（非数字）        |     NaN                                    |     NaN
+         对象obj               |     valueOf(obj)，等于NaN则用toString()    |     用前述规则计算转换后值
+
+    一元操作符+、-：
+        放在非数值前时，会执行Number()转换。
+ 
+    位操作：
+        正负表示：
+            32位整数
+            首位为符号位，0为负，1为正。
+            负数表示法为二进制补码，即 -x = ~x+1
+
+        NaN和Infinity被当作0.
+        非数值在位操作前会先用Number()转成数值。
+        
+        按位非（~）
+            数的负值-1（二进制反码）
+        按位与（&）
+        按位或（|）
+        按位异或（^）
+        左移（<<）
+            左移的空位用0补足。保留符号位。
+        右移（>>）
+            右移的空位用符号位补足。保留符号位。
+        无符号右移（>>>）
+            
+        bool操作：
+            逻辑非（!）
+                操作时会先把值用Boolean()转换
+            逻辑或（||）、 逻辑与（&&）
+                a如果为true，则b不执行。
+
+                Boolean(a)             | b        | a && b   | a || b
+---------------------------------------|----------|----------|------------------------------------            
+                Boolean(a)=true        | any      | b        | a
+                Boolean(a)=false       | any      | a        | b
+
+        乘法：
+            乘法：
+
+                 a                  | b                | a * b
+------------------------------------|------------------|--------------------------------------------
+                 Number             | Number           | Number或+-Infinity
+                 NaN                | any              | NaN
+                 Infinity           | 0                | NaN
+                 Infinity           | Number           | +-Infinity
+                 obj                | any              | Number(a) * b
+            
+            除法：
+
+                 a                  | b                | a / b
+------------------------------------|------------------|--------------------------------------------
+                 Number             | Number           | Number或+-Infinity
+                 NaN                | any              | NaN
+                 Number             | 0                | NaN
+                 Infinity           | Number           | NaN
+                 Infinity           | Infinity         | NaN
+                 obj                | any              | Number(a) / b
+
+            加法：
+
+                 a                  | b                | a + b
+------------------------------------|------------------|--------------------------------------------
+                 Number             | Number           | Number或+-Infinity
+                 NaN                | any              | NaN
+                 Infinity           | -Infinity        | NaN
+                 Infinity           | Number           | +-Infinity
+                 obj                | any              | Number(a) + b
+                 +0                 | +0               | +0
+                 -0                 | -0               | -0
+                 +0                 | -0               | +0
+                 String             | any              | String(a) + b
+
+            减法：
+
+                 a                  | b                | a - b
+------------------------------------|------------------|--------------------------------------------
+                 Number             | Number           | Number
+                 NaN                | any              | NaN
+                 Infinity           | -Infinity        | Infinity
+                 Infinity           | Infinity         | NaN
+                 obj及非Number      | any              | Number(a) + b
+                 +0                 | +0               | +0
+                 -0                 | -0               | +0
+                 -0                 | +0               | -0
+                 String             | any              | String(a) + b
+
+            关系操作符：
+                数值比较大小
+                字符串比较字符编码值
+                一个操作数为数值，则另一个取Number()再比较
+                一个操作数为对象，则先valueOf()，没有此方法时再toString()。
+                布尔值转为数值再比较。
+                和NaN比较永远返回false。
+
+            相等操作符：
+                相等：
+                全等：
