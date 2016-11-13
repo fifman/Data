@@ -187,7 +187,7 @@ Object：
                 Boolean(a)=true        | any      | b        | a
                 Boolean(a)=false       | any      | a        | b
 
-        乘法：
+        加减乘除：
             乘法：
 
                  a                  | b                | a * b
@@ -237,14 +237,39 @@ Object：
                  -0                 | +0               | -0
                  String             | any              | String(a) + b
 
-            关系操作符：
-                数值比较大小
-                字符串比较字符编码值
-                一个操作数为数值，则另一个取Number()再比较
-                一个操作数为对象，则先valueOf()，没有此方法时再toString()。
-                布尔值转为数值再比较。
-                和NaN比较永远返回false。
+        关系操作符：
+            数值比较大小
+            字符串比较字符编码值
+            一个操作数为数值，则另一个取Number()再比较
+            一个操作数为对象，则先valueOf()，没有此方法时再toString()。
+            布尔值转为数值再比较。
+            和NaN比较永远返回false。
 
             相等操作符：
                 相等：
+
+               | a                    | b                 | 转换
+---------------|----------------------|-------------------|-----------------------------------------
+               | boolean              | Number            | Boolean转Number
+               | String               | Number            | String转Number
+               | Object               | 非Object          | 调Object的valueOf()方法
+               | null                 | undefined         | 相等，两者不能转换成任何值，即不等于其它任何值
+               | NaN                  | any               | 不想等，即使b也为NaN。
+               | Object               | Object            | 两个引用是否指向同一个Object
+
                 全等：
+                    只在不转换前相等，才为true
+                    null !== undefined
+
+        循环语句：
+            语句的条件会用Boolean()转换。
+            for：
+                for语句的初始化表达式、控制表达式、循环后表达式都可选。for(;;){}是正确语法。
+                执行了循环体，则必执行循环后表达式。
+            for-in：
+                for (var name in object){}
+                如果object为null或undefined，可能抛错误。ECMAScript 5不抛错误。
+            label：和循环语句配套使用。
+            
+
+            
