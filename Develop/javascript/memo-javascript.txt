@@ -22,11 +22,14 @@ typeof:
         typeof 95
         typeof (95)
         typeof(95)
-    特殊情况：
-        typeof null = "object"
-        typeof undefined = "undefined"
-        typeof {正则表达式} = "function" 或
-"object"，根据浏览器不同而定（主流为返回"object"。"function"多为老版本）
+
+       | typeof            | condition            | result
+    ---|-------------------|----------------------|-------------------------------------------
+       | Array             | -                    | "object"
+       | null              | -                    | "object"
+       | Function          | -                    | "function"
+       | 正则表达式        | 根据浏览器不同       | "object"（主流）/"function"
+       | undefined         | -                    | "undefined"
 
 undefined及未声明：
     声明但未赋值：undefined
@@ -156,120 +159,167 @@ Object：
     一元操作符+、-：
         放在非数值前时，会执行Number()转换。
  
-    位操作：
-        正负表示：
-            32位整数
-            首位为符号位，0为负，1为正。
-            负数表示法为二进制补码，即 -x = ~x+1
+位操作：
+    正负表示：
+        32位整数
+        首位为符号位，0为负，1为正。
+        负数表示法为二进制补码，即 -x = ~x+1
 
-        NaN和Infinity被当作0.
-        非数值在位操作前会先用Number()转成数值。
+    NaN和Infinity被当作0.
+    非数值在位操作前会先用Number()转成数值。
+    
+    按位非（~）
+        数的负值-1（二进制反码）
+    按位与（&）
+    按位或（|）
+    按位异或（^）
+    左移（<<）
+        左移的空位用0补足。保留符号位。
+    右移（>>）
+        右移的空位用符号位补足。保留符号位。
+    无符号右移（>>>）
+            
+bool操作：
+    逻辑非（!）
+        操作时会先把值用Boolean()转换
+    逻辑或（||）、 逻辑与（&&）
+        a如果为true，则b不执行。
+
+        Boolean(a)             | b        | a && b   | a || b
+-------------------------------|----------|----------|------------------------------------            
+        Boolean(a)=true        | any      | b        | a
+        Boolean(a)=false       | any      | a        | b
+
+加减乘除：
+    乘法：
+
+         a                  | b                | a * b
+----------------------------|------------------|--------------------------------------------
+         Number             | Number           | Number或+-Infinity
+         NaN                | any              | NaN
+         Infinity           | 0                | NaN
+         Infinity           | Number           | +-Infinity
+         obj                | any              | Number(a) * b
+    
+    除法：
+
+         a                  | b                | a / b
+----------------------------|------------------|--------------------------------------------
+         Number             | Number           | Number或+-Infinity
+         NaN                | any              | NaN
+         Number             | 0                | NaN
+         Infinity           | Number           | NaN
+         Infinity           | Infinity         | NaN
+         obj                | any              | Number(a) / b
+
+    加法：
+
+         a                  | b                | a + b
+----------------------------|------------------|--------------------------------------------
+         Number             | Number           | Number或+-Infinity
+         NaN                | any              | NaN
+         Infinity           | -Infinity        | NaN
+         Infinity           | Number           | +-Infinity
+         obj                | any              | Number(a) + b
+         +0                 | +0               | +0
+         -0                 | -0               | -0
+         +0                 | -0               | +0
+         String             | any              | String(a) + b
+
+    减法：
+
+         a                  | b                | a - b
+----------------------------|------------------|--------------------------------------------
+         Number             | Number           | Number
+         NaN                | any              | NaN
+         Infinity           | -Infinity        | Infinity
+         Infinity           | Infinity         | NaN
+         obj及非Number      | any              | Number(a) + b
+         +0                 | +0               | +0
+         -0                 | -0               | +0
+         -0                 | +0               | -0
+         String             | any              | String(a) + b
+
+关系操作符：
+    数值比较大小
+    字符串比较字符编码值
+    一个操作数为数值，则另一个取Number()再比较
+    一个操作数为对象，则先valueOf()，没有此方法时再toString()。
+    布尔值转为数值再比较。
+    和NaN比较永远返回false。
+
+    相等操作符：
+        相等：
+
+       | a                    | b                 | 转换
+-------|----------------------|-------------------|-----------------------------------------
+       | boolean              | Number            | Boolean转Number
+       | String               | Number            | String转Number
+       | Object               | 非Object          | 调Object的valueOf()方法
+       | null                 | undefined         | 相等，两者不能转换成任何值，即不等于其它任何值
+       | NaN                  | any               | 不想等，即使b也为NaN。
+       | Object               | Object            | 两个引用是否指向同一个Object
+
+        全等：
+            只在不转换前相等，才为true
+            null !== undefined
+
+语句：
+    循环语句：
+        语句的条件会用Boolean()转换。
+        for：
+            for语句的初始化表达式、控制表达式、循环后表达式都可选。for(;;){}是正确语法。
+            执行了循环体，则必执行循环后表达式。
+        for-in：
+            for (var name in object){}
+            如果object为null或undefined，可能抛错误。ECMAScript 5不抛错误。
+        label：和循环语句配套使用。
+        switch：
+            switch (expression) {
+                case value: statement
+                    break;
+                ...
+                default: statement
+            }
+            省略break会导致执行下一条case。
+            value可以是变量或者表达式。
         
-        按位非（~）
-            数的负值-1（二进制反码）
-        按位与（&）
-        按位或（|）
-        按位异或（^）
-        左移（<<）
-            左移的空位用0补足。保留符号位。
-        右移（>>）
-            右移的空位用符号位补足。保留符号位。
-        无符号右移（>>>）
+    with:
+        限定语句的作用域。(不推荐使用)
+
+函数：
+    function不能重名，不像java可以重载。后定义函数会覆盖前面的。
+    arguments：
+        可以通过arguments对象访问参数数组。类似数组的调用。（但arguments并不是Array的实例！）
+        修改arguments会影响命名参数，但修改命名参数不会影响arguments。
+        arguments的长度由传入的参数个数决定，而不是由定义的命名参数个数决定！因此，当arguments增加一个元素时，不会影响命名参数。
+    命名参数：
+        没传值的命名参数被赋值undefined。
+
+
+变量、作用域、内存问题
+    类型：
+        字符串是基本类型！
+        对象（包括数组）可以动态添加属性、方法 
+        复制变量值：
+            基本类型：值复制，相互独立
+            引用类型（对象）：引用复制，相互影响。
+                注意：虽然是复制引用，但实际上仍然是值传递！引用不会传递。即：
+                    a=b
+                    b={}
+                    a!=b
+                b的引用变了的话，a的引用不会变。
+
+        instanceof：
+            variable instanceof Constructor
             
-        bool操作：
-            逻辑非（!）
-                操作时会先把值用Boolean()转换
-            逻辑或（||）、 逻辑与（&&）
-                a如果为true，则b不执行。
-
-                Boolean(a)             | b        | a && b   | a || b
----------------------------------------|----------|----------|------------------------------------            
-                Boolean(a)=true        | any      | b        | a
-                Boolean(a)=false       | any      | a        | b
-
-        加减乘除：
-            乘法：
-
-                 a                  | b                | a * b
-------------------------------------|------------------|--------------------------------------------
-                 Number             | Number           | Number或+-Infinity
-                 NaN                | any              | NaN
-                 Infinity           | 0                | NaN
-                 Infinity           | Number           | +-Infinity
-                 obj                | any              | Number(a) * b
+            instanceof      type
+            Array           Array
+            正则表达式      RegExp
             
-            除法：
-
-                 a                  | b                | a / b
-------------------------------------|------------------|--------------------------------------------
-                 Number             | Number           | Number或+-Infinity
-                 NaN                | any              | NaN
-                 Number             | 0                | NaN
-                 Infinity           | Number           | NaN
-                 Infinity           | Infinity         | NaN
-                 obj                | any              | Number(a) / b
-
-            加法：
-
-                 a                  | b                | a + b
-------------------------------------|------------------|--------------------------------------------
-                 Number             | Number           | Number或+-Infinity
-                 NaN                | any              | NaN
-                 Infinity           | -Infinity        | NaN
-                 Infinity           | Number           | +-Infinity
-                 obj                | any              | Number(a) + b
-                 +0                 | +0               | +0
-                 -0                 | -0               | -0
-                 +0                 | -0               | +0
-                 String             | any              | String(a) + b
-
-            减法：
-
-                 a                  | b                | a - b
-------------------------------------|------------------|--------------------------------------------
-                 Number             | Number           | Number
-                 NaN                | any              | NaN
-                 Infinity           | -Infinity        | Infinity
-                 Infinity           | Infinity         | NaN
-                 obj及非Number      | any              | Number(a) + b
-                 +0                 | +0               | +0
-                 -0                 | -0               | +0
-                 -0                 | +0               | -0
-                 String             | any              | String(a) + b
-
-        关系操作符：
-            数值比较大小
-            字符串比较字符编码值
-            一个操作数为数值，则另一个取Number()再比较
-            一个操作数为对象，则先valueOf()，没有此方法时再toString()。
-            布尔值转为数值再比较。
-            和NaN比较永远返回false。
-
-            相等操作符：
-                相等：
-
-               | a                    | b                 | 转换
----------------|----------------------|-------------------|-----------------------------------------
-               | boolean              | Number            | Boolean转Number
-               | String               | Number            | String转Number
-               | Object               | 非Object          | 调Object的valueOf()方法
-               | null                 | undefined         | 相等，两者不能转换成任何值，即不等于其它任何值
-               | NaN                  | any               | 不想等，即使b也为NaN。
-               | Object               | Object            | 两个引用是否指向同一个Object
-
-                全等：
-                    只在不转换前相等，才为true
-                    null !== undefined
-
-        循环语句：
-            语句的条件会用Boolean()转换。
-            for：
-                for语句的初始化表达式、控制表达式、循环后表达式都可选。for(;;){}是正确语法。
-                执行了循环体，则必执行循环后表达式。
-            for-in：
-                for (var name in object){}
-                如果object为null或undefined，可能抛错误。ECMAScript 5不抛错误。
-            label：和循环语句配套使用。
-            
-
-            
+    执行环境、作用域：
+        全局执行环境：
+            网页：window对象
+            程序退出、网页关闭才销毁
+        函数执行环境：
+            执行逻辑进入函数时，函数环境被push到环境栈；执行后，弹出。
