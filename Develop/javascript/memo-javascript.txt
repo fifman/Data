@@ -323,3 +323,75 @@ bool操作：
             程序退出、网页关闭才销毁
         函数执行环境：
             执行逻辑进入函数时，函数环境被push到环境栈；执行后，弹出。
+        作用域链：
+            try-catch，with可以延长作用域链
+        js没有块级作用域！
+        声明变量时使用“var”声明，则变量添加到最近的环境。如果不使用“var”声明，则添加到全局环境。
+            变量被访问时才添加。
+        
+    垃圾回收：
+        基本类型保存在栈，对象保存在堆。
+        局部变量、对象会在程序退出局部执行环境时自动释放（“解除引用”）。
+        全局变量和全局对象的属性在有必要的情况下，可显式“解除引用”：
+            var globalVariable = new Object();
+            ...
+            globalVariable = null;
+            通过将全局变量设为null，可以显式解除引用。
+
+    引用类型（对象）：
+        Object:
+            表示法：
+                new Object()
+                {}
+                {a:1, b:2} //最后不能加逗号。部分解析器可以识别，但不兼容
+                {"a":1} // 属性可以加双引号
+            方法：
+                toLocaleString()
+                toString()
+                valueOf()
+        Array：
+            数组大小可动态调整。
+            表示法：
+                new Array()
+                Array()  //可省略“new” 
+                new Array(20)  //长为20
+                new Array("a","b","c")  //元素为“a”，“b”，“c”
+                ["a","b"]   //最后不要加逗号，不同解析器不兼容
+                [,,]        //2或3个值为undefined的元素
+            可对超出长度的index赋值，Index前的未赋值元素即为空值。
+
+                方法值：
+---------------------------------------|-----------------------------------------------------------
+                toString()             | 逗号分隔字符串拼接
+                valueOf()              | 数组本身
+                toLocaleString()       | 调用数组中每一项的toLocaleString()方法，再拼接
+                join()                 | 逗号分隔值
+                push()                 | 栈推入，返回数组长度
+                pop()                  | 栈弹出，返回弹出值
+                shift()                | 队列出，返回移出值
+                unshift()              | 队列前端入，返回长度
+                reverse()              | 反转
+                sort()                 | 排序，先调toString()，然后比较字符串。此时"5">"15"。
+                                       | 可接收排序函数。arg1在arg2前则-1，后则+1，=则0
+                concat()               | concat(a,b,c...)，入参为元素，加入。为数组，合并。返回副本。
+                slice()                | 截取，不包含最后一项。返回副本。                                          
+                splice()               | splice(startIndex, delNo, a, b, c ...)
+                                       | startIndex：起始位置                                            
+                                       | delNo：删除个数                                                 
+                                       | a, b, c ...：在删除的位置上插入的元素                                   
+                                       | 影响原数组，并返回被删除项组成的数组。
+                indexof()              | indexOf(value, startIndex)：查找索引，无则返回-1。需要严格相等（全等）。
+                lastIndexOf()          | 从末尾到前查找，其余和indexOf()相同。
+
+            迭代：
+                every(fn,obj)            对每一项执行fn，如果所有执行结果为true，则返回true。
+                filter(fn,obj)           对每一项执行fn，返回执行结果为true的元素。
+                forEach(fn,obj)                                                                                
+                map(fn,obj)                                                                                
+                some(fn,obj)                                                                                
+        
+        程序包含多个框架时，可存在多个全局执行环境。此时可能存在多个Array构造函数。
+            instanceof Array 不一定取得正确的值
+            Array.isArray(obj)可解决此问题，但并非所有浏览器都支持。
+
+
