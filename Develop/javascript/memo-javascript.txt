@@ -328,6 +328,10 @@ bool操作：
         js没有块级作用域！
         声明变量时使用“var”声明，则变量添加到最近的环境。如果不使用“var”声明，则添加到全局环境。
             变量被访问时才添加。
+
+        程序包含多个框架时，可存在多个全局执行环境。此时可能存在多个Array构造函数。
+            instanceof Array 不一定取得正确的值
+            Array.isArray(obj)可解决此问题，但并非所有浏览器都支持。
         
     垃圾回收：
         基本类型保存在栈，对象保存在堆。
@@ -383,15 +387,23 @@ bool操作：
                 indexof()              | indexOf(value, startIndex)：查找索引，无则返回-1。需要严格相等（全等）。
                 lastIndexOf()          | 从末尾到前查找，其余和indexOf()相同。
 
-            迭代：
-                every(fn,obj)            对每一项执行fn，如果所有执行结果为true，则返回true。
-                filter(fn,obj)           对每一项执行fn，返回执行结果为true的元素。
-                forEach(fn,obj)                                                                                
-                map(fn,obj)                                                                                
-                some(fn,obj)                                                                                
-        
-        程序包含多个框架时，可存在多个全局执行环境。此时可能存在多个Array构造函数。
-            instanceof Array 不一定取得正确的值
-            Array.isArray(obj)可解决此问题，但并非所有浏览器都支持。
+            迭代：                     
+                                       | 不会修改原数组                   
+---------------------------------------|------------------------------------------------------------
+                every(fn,obj)          | 对每一项执行fn，如果所有执行结果为true，则返回true。
+                filter(fn,obj)         | 对每一项执行fn，返回执行结果为true的元素数组。
+                forEach(fn,obj)        | 对每一项执行fn，无返回值。
+                map(fn,obj)            | 对每一项执行fn，返回结果数组。
+                some(fn,obj)           | 对每一项执行fn，任一项返回true，则返回true。
+       
+            缩小：
+---------------------------------------|------------------------------------------------------------
+                reduce(fn,start)       | fn(prev, cur, index, array)：
+                                       | 当存在start时，prev初始值为start，cur初始值为array[0]，index初始值为0；
+                                       | 不存在start时，prev初始值为array[0]，cur初始值为array[1]，index初始值为1。
+                reduceRight(fn,start)  | 和reduce反方向遍历。
+
+        Date：
+            
 
 
