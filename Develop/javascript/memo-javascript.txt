@@ -396,7 +396,7 @@ bool操作：
                 map(fn,obj)            | 对每一项执行fn，返回结果数组。
                 some(fn,obj)           | 对每一项执行fn，任一项返回true，则返回true。
        
-            缩小：
+            归并：
 ---------------------------------------|------------------------------------------------------------
                 reduce(fn,start)       | fn(prev, cur, index, array)：
                                        | 当存在start时，prev初始值为start，cur初始值为array[0]，index初始值为0；
@@ -404,6 +404,117 @@ bool操作：
                 reduceRight(fn,start)  | 和reduce反方向遍历。
 
         Date：
+            构造：
+                new Date("Nov 18, 2016")
+                new Date("11/18/20146")
+                new Date(Date.parse("Nov 18, 2016"))
+            值无法解析的话，不同解释器会有不同行为
+            Date.UTC(year,month,day,hour,minute,second,millisecond)
+                year: 当前年
+                month: 0~11
+                day: 1~31
+                hour，minute, second,milisecond：表示法和通用表示一致
+                只有year和month必要。day默认为1，其余默认为0.
+                new Date(year,month...)：UTC表示法构造器
+            Date.now() (不兼容老版本浏览器)
+                == Date.parse(new Date().toString()) == +new Date() = new Date().valueOf()
+            表示为字符串：
+                toDateString()      省略时间，显示年月日
+                toTimeString()      省略年月日，显示时间
+                toLocaleDateString()        地区格式年月日
+                toLocaleTimeString()        地区格式时分秒
+                toUTCString()       UTC格式日期
+
+        RegExp：
+            expr：                       |            |                                
+-----------------------------------------|------------|----------------------------------------
+            /pattern/flags（字面量）     | 转义       | ECMAScript 3中指向同对象，ECMAScript 5中指向不同对象
+            new RegExp(pattern, flags)   | 双重转义   | 指向不同对象
+
+            flags：
+                g：     全局模式，下一次匹配会从上一次匹配的末尾开始，而不是在第一个匹配停止，即lastIndex参数变成全局变量。
+                i：     不区分大小写
+                m：     多行模式
+            元字符：
+                必须转义
+                () [] {} \ ^ $ | ? * + .
+                表达式1种需要转义，表达式2中需要双重转义
+            实例属性：
+------------------------------|---------------|-------------------------------------------------
+             global           | bool          | 是否设置g标志
+             ignoreCase       | bool          | 是否设置i标志
+             lastIndex        | int           | 上一次匹配的字符串开始位置
+             multiline        | bool          | 是否设置m标志
+             source           | string        | 正则表达式的字符串表示（即双重转义后）
             
+            exec(str)：
+                没有匹配时返回null。
+                有匹配时返回一个数组。
+                    数组中
+                        第一个值：匹配整个模式的字符串
+                        其余值：与模式中的捕获组匹配的字符串（当模式中包含捕获组时才存在）
+                            其余值的第一个值和数组的第一个值重复
+                    数组包含两个属性：
+                        index：匹配项在字符串中的位置
+                        input：入参str
+            test(str)：
+                返回是否匹配的bool值。注意g标志同样会造成全局lastIndex。
+            toString()、toLocaleString()：返回字面量
+                == "/" + regExp.source + "/" + flags
+            valueOf()返回本身
 
+            构造函数“静态”属性：
+                （略），浏览器不兼容
 
+函数：
+    函数是对象，有属性和方法
+    函数名是一个指向函数对象的指针
+    函数声明：
+        function test(){}
+    函数表达式：
+        var test = function(){}
+    函数声明会被解析器预先读取，在执行任何代码前可用。函数表达式则在执行到所在代码行之前不可用。
+    函数作为值：
+        function callFunction(funcName, funcArg){
+            return funcName(funcArg);
+        }
+    函数内部属性：
+        arguments：
+            包含所有入参
+            callee属性：拥有此入参的函数
+                function factorial(num){
+                    if (num<=1)
+                        return 1;
+                    return num + factorial(num-1);
+                }
+                var newFactorial = factorial;
+                factorial = function(){
+                    return 0;
+                }
+                此时newFactorial受到factorial重赋值的影响！
+                使用arguments.callee可避免此影响！            
+        this：
+            函数执行的环境对象。
+            例如，浏览器全局函数时，this==window
+        caller（ECMAScript 5）：
+            调用此函数的函数（无则为null）
+
+    函数属性：
+        length：入参定义中参数个数
+        prototype：继承自Object。在ECMAScript 5中，不能用for-in遍历。
+    
+    函数方法：
+        apply(obj, args)：
+            obj：设置为函数的执行域                    
+            args：可为数组或者arguments对象，输入函数的参数。
+        call(obj, arg1, arg2 ...)：
+            obj：执行域
+            arg1, arg2 ...：参数列表
+        bind(obj)：
+            ECMAScript 5限定
+            返回函数实例，作用域被绑定到obj。
+        toString()、toLocaleString()：
+            返回函数代码（不同解释器行为不同）
+
+包装类型：
+    
