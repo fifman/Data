@@ -524,3 +524,118 @@ bool操作：
 
 包装类型：
     
+
+
+对象：
+    属性的内部属性（ECMAScript 5）：
+        数据属性：
+            Configurable：
+                能否delete
+                能否修改属性特性
+                能否将属性修改为访问器属性
+                一旦属性设为了不可配置，则无法再改回成可配置！
+            Enumerable：
+                能否用for-in访问
+            Writable：
+                能否写，即修改属性值
+            Value：
+                属性值，默认为undefined。
+        访问器属性：
+            Get：读属性值函数
+            Set：写属性值函数
+            访问器的函数可用于读写属性值。类似Java的setter和getter方法，可建立属性间的关联。
+        属性操作方法：
+            Object.defineProperty(obj, propertyName, config)：    
+                内部属性不能直接修改，必须用Object.defineProperty()定义。
+                obj          ： 对象
+                propertyName ： 对象属性名
+                config       ： 内部属性值对象，config对象的属性即为obj的内部属性。
+            Object.defineProperties(obj, properties)：
+                properties：属性对象。对象中每个属性为Object的一个属性的定义。
+            Object.getOwnPropertyDescriptor(obj, propertyName)：获取属性内部属性定义，只能用于实例属性，不能用于原型属性。
+    创建：
+        工厂模式：使用函数直接创建对象，无法识别类型。
+        构造函数：
+            function Person(name){
+                this.name = name;
+            };
+            var person = new Person("abc");
+                没有return。
+                使用了this。
+                无需显式创建对象。
+            构造函数和普通函数没有区别！任何函数，使用“new”关键字就成了构造函数，否则就是普通函数。此时this代表全局对象。
+            构造函数中如果包含方法定义，则不同实例中方法为不同的对象。可通过方法外移解决此问题：
+                function Person(name){
+                    this.name = name;
+                    this.sayName = sayName;
+                };
+                function sayName(){
+                    alert(this.name);
+                }
+            但此时，sayName为全局函数，可被任意对象调用。失去了封闭性。于是需要原型模式。
+        原型模式：
+            所有函数都有一个原型对象。
+                Person.prototype.sex = "female";
+                Person.prototype.getSex = function(){
+                    return this.sex;
+                }
+            原型对象的属性被所有函数创建的实例共享。
+            原型对象默认constructor属性：指向构造函数。
+            Person.prototype.isPrototypeOf(obj)：判断是否是原形对象
+            Object.getPrototypeOf(obj)：获取obj的原型对象（ECMAScript 5）
+            读取对象属性时，先搜索实例，再搜索原型。实例属性屏蔽原型属性，但不会复写。
+            person.hasOwnProperty(propertyName)：只有当属性在实例中时才会返回true。原型中的属性会返回false（除非实例中存在覆盖）。
+            in操作符：
+                propertyName in obj：存在实例或原型属性，都返回true。
+                for-in：返回所有可枚举属性，包含原型属性，以及屏蔽不可枚举原型属性的可枚举实例属性。但早期浏览器版本可能不满足此实现。
+                Object.keys(obj)，Object.getOwnPropertyNames(obj)：返回obj的可枚举实例属性。
+            对象字面量模式创造原型对象：
+                Person.prototype = {
+                    sex: "female"
+                }
+                此时constructor指向Object而不是Person！但instanceof操作仍然正确！需要显式指定constructor：
+                Person.prototype = {
+                    constructor: Person,
+                    sex: "female"
+                }
+                此时注意constructor属性的内部属性发生变化，变成了可枚举属性！
+                对象字面量模式等于重写原型对象（变成一个新的对象），会切断已建好的实例和新建原型之间的联系！
+            原生引用类型：
+                所有原生引用类型，都是采用原型模式创建的！可以通过修改原型为原生类型增加自定义方法。
+            最佳实现：构造函数+原型模式混用，分别设置属性和方法。
+                function Person(name){
+                    this.name = name;
+                }
+                Person.prototype = {
+                    constructor: Person,
+                    getName: function(){
+                        return this.name;
+                    }
+                }
+            最佳实现2：动态原型创造：
+                function Person(name){
+                    this.name = name;
+                    if (typeof this.getName != "function")
+                        this.prototype.getName = function(){
+                            return this.name;
+                        }
+                }
+                注意此时不能使用对象字面量，否则if语句在第二次调用构造函数时才起效！
+            特殊用途：寄生构造函数：
+                function Male(name){
+                    var person = new Person();
+                    person.getSex = function(){
+                        return "male";
+                    }
+                    return person;
+                }
+                用于在不改变原对象Person的情况下进行构造逻辑修改。实际上就是工厂模式。
+                可用new关键字，但return的对象会覆盖new的对象。
+            特殊用途2：稳妥构造函数：
+                function Teacher(class){
+                    var teacher = new Object();
+                    teacher.getClass = function(){
+                        return class;
+                    }
+                }
+                不使用this和new关键字。class属性只能通过方法获取。
