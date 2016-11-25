@@ -289,6 +289,7 @@ bool操作：
 
 函数：
     function不能重名，不像java可以重载。后定义函数会覆盖前面的。
+    函数声明提升：执行代码前会先读取函数声明。
     arguments：
         可以通过arguments对象访问参数数组。类似数组的调用。（但arguments并不是Array的实例！）
         修改arguments会影响命名参数，但修改命名参数不会影响arguments。
@@ -639,3 +640,74 @@ bool操作：
                     }
                 }
                 不使用this和new关键字。class属性只能通过方法获取。
+            寄生、稳妥构造模式instanceof不能正确执行。
+
+    继承：
+        原型链：
+            function SuperType(){}
+            function SubType(){}
+            SubType.prototype = new SuperType();
+            子对象的构造函数原型指针指向父对象，即父对象为子对象的原型。于是父、子对象的原型形成链。
+            此时子对象原型的constructor指针指向父对象构造函数。
+            instanceof、isPrototypeOf能正确检测父构造函数。
+            注意不要使用对象字面量导致原型链被复写。
+        借用构造函数/伪造对象/经典继承：
+            function SubType(){
+                SuperType.call(this,...);
+            }
+            这种模式，因为SuperType.call无法调用prototype，导致必须在SuperType构造函数中定义属性和方法。失去了原型的意义。
+        组合继承/伪经典继承：
+            通过原型链实现对原型属性和方法的继承，通过借用构造函数实现对实例属性的继承。
+            function SuperType(name){
+                this.name = name;
+            }
+            SuperType.prototype.getName = function(){
+                return this.name;
+            }
+            function SubType(age){
+                this.age = age;
+                SuperType.call(this,name);
+            }
+            SubType.prototype = new SuperType();
+        原型式继承：
+            function createSub(obj){
+                function F(){}
+                F.prototype = obj;
+                return new F();
+            }
+            ECMAScript通过Object.create(obj, properties)实现原型式继承。properties格式与Object.defineProperties()的第二个参数相同。
+        寄生式继承：
+            function createNew(obj){
+                var sub = createSub(obj);     //复制
+                sub.name = "fengyc";          //增强
+                return sub;
+            }
+            不能做到函数复用。
+        寄生组合式继承：
+            function extendType(subType, superType){
+                var proto = createSub(superType.prototype);
+                proto.constructor = subType;
+                subType.prototype = proto;
+            }
+            function SubType(name, age){
+                this.age = age;
+                SuperType.call(this,name);
+            }
+            extendType(SubType, SuperType);
+
+函数表达式：
+    递归：
+        用arguments.callee实现递归。
+            function factional(num){
+                if (num<=1)
+                    return 1;
+                else
+                    return num * arguments.callee(num-1);
+            }
+        用重命名实现递归：
+            var factional = (function f(num){
+                if (num<=1)
+                    return 1;
+                else
+                    return num * f(num-1);
+            });
