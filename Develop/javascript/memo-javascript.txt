@@ -14,6 +14,7 @@ js标识符（命名可用字符）：
 变量：
     js变量是松散类型的，即可以保存任何类型的数据。
     var标识局部变量声明。不加var则变成全局变量。（不推荐）
+    变量声明在js中可多次重复，只有第一次有效。js会忽视其后的变量声明（但是初始化仍然有效）。
 
 typeof:
     返回值（字符串）：
@@ -319,6 +320,14 @@ bool操作：
             正则表达式      RegExp
             
     执行环境、作用域：
+        变量对象：
+            每个执行环境都有一个相关的变量对象，保存环境定义的所有变量和函数。
+            每个函数都有自己的执行环境，其活动对象作为变量对象。
+            代码执行时会创建变量对象的一个作用域链，由一串变量对象组成。搜索变量从前到后。
+        活动对象：
+            在初次调用函数时，会产生函数的一个活动对象。
+            活动对象会将this、arguments、其它命名参数保存。
+            函数使用活动对象作为变量对象，保存到执行域链。
         全局执行环境：
             网页：window对象
             程序退出、网页关闭才销毁
@@ -329,10 +338,11 @@ bool操作：
         js没有块级作用域！
         声明变量时使用“var”声明，则变量添加到最近的环境。如果不使用“var”声明，则添加到全局环境。
             变量被访问时才添加。
-
         程序包含多个框架时，可存在多个全局执行环境。此时可能存在多个Array构造函数。
             instanceof Array 不一定取得正确的值
             Array.isArray(obj)可解决此问题，但并非所有浏览器都支持。
+        圆括号不改变作用域：
+            例如，object.getName()和(object.getName)()两者的执行域是一样的。
         
     垃圾回收：
         基本类型保存在栈，对象保存在堆。
@@ -711,3 +721,126 @@ bool操作：
                 else
                     return num * f(num-1);
             });
+    闭包：
+        闭包指有权访问另一个函数作用域的函数。
+        常见形式：在函数内部定义并返回另一个函数：
+            function outer(a){
+                return function inner(b){
+                    return b+a;
+                }
+            }
+        内部函数Inner始终能够访问外部函数outer的变量a。这是因为inner的作用域包含outer的作用域。
+        函数创建时会预先创建一个包含全局变量对象的执行域链，并设置到[[scope]]属性。并在第一次调用时复制[[scope]]属性创建函数的执行域链，然后将自己的活动对象推入执行域链前端。
+        内部函数创建时会将包含函数的活动对象添加到自己的作用域链中。inner被返回后，outer的活动对象不会被销毁，因为inner还引用它。直到inner本身被销毁后，outer的活动对象才被销毁。
+        闭包只能访问包含函数中任何对象的最后一个值：
+            function funcList(){
+                var result = [];
+                for (var i=0;i<10;i++)
+                    result = function(){
+                        return i;
+                    }
+                return result;
+            }
+            此时result中所有函数都只能返回10.
+        闭包在访问this时，因为闭包自己的活动对象会在初始化时自动产生一个this（闭包的调用对象），因此不会读取外部函数的this。arguments也一样。
+        内存泄漏：
+            function setEvent(){
+                var ele = document.getElementById("id");
+                ele.onclick = function(){
+                    alert(ele.id);
+                }
+            }
+            此时，因为匿名函数被作为事件响应调用，始终引用setEvent的活动对象，导致ele不能销毁。正确写法如下：
+            function setEvent(){
+                var ele = document.getElementById("id");
+                var id = ele.id;
+                ele.onclick = function(){
+                    alert(id);
+                    ele = null; //此语句销毁ele，否则匿名函数始终引用setEvent的整个活动对象，包含ele，导致ele不能销毁。
+                }
+            }
+    模仿块级作用域：
+        (function(){
+            //执行语句
+        })();
+        这种形式成为私有作用域，是一个闭包，能否访问外部作用域的变量。
+    私有变量：
+        函数中定义的变量（参数、局部变量及内部函数）是私有变量，外部不能访问。
+        特权方法：
+            有权访问私有变量和私有函数的共有方法。例如：
+                function MyObj(){
+                    var name = "aa";
+                    function getFalse(){
+                        return false;
+                    }
+                    this.publicMethod = function{  //特权方法
+                        alert(name);
+                        return getFalse();
+                    }
+                }                
+            特权方法可用于实现类似javabean的对象创建，隐藏private属性。例如：
+                function Person(name){
+                    this.getName = function(){
+                        return name;
+                    }
+                    this.setName = function(value){
+                        name = value;
+                    }
+                }
+        静态私有变量：
+            (function(){
+                var name = "aaa";
+                function getFalse(){
+                    return false;
+                }
+                Person = function(){
+                }; // 注意此处Person变量没有加“var”声明，并使用了函数式，这是为了让Person成为全局函数。
+                Person.prototype.publicMethod = function{  //特权方法
+                    alert(name);
+                    return getFalse();
+                }
+            })();
+        模块模式：
+            var singleton = (function(){
+                var privateInt = 0;
+                function privateMethod(){
+                    return false;
+                };
+                return {
+                    publicInt: 3,
+                    publicMethod: function(){
+                        privateInt++;
+                        return privateMethod();
+                    }
+                };
+            })();
+        增强模块模式：
+            var singleton = function(){
+                var privateInt = 0;
+                var obj = new CustomType();
+                obj.publicMethod = function(){
+                    return privateInt++;
+                };
+                return obj;
+            }(); //此时function不用包裹圆括号，因为函数表达式可以直接执行。
+
+BOM：
+    window对象：
+        全局对象
+        定义全局变量x和window属性window.x的行为差异：
+            delete：
+                window属性可以delete。全局变量不可以。
+                    window.x = "aa";
+                    var x = "aa";
+            访问未定义的两者：
+                window属性会返回undefined。
+                全局变量会抛出错误。
+        frame：
+            每个frame包含一个window对象。
+            所有框架window对象保存在frames数组中。从左到右，从上到下访问。
+            window.name表示框架名。            
+            top.frames始终是正确引用。
+            top.frames[0]或者top.frames["frameName"]两种调用方式
+        主window的parent和top都和window相等。
+        self始终等于window。
+
