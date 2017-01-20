@@ -11,6 +11,8 @@ js标识符（命名可用字符）：
 
 {}：包裹代码块，把多条语句包括起来。
 
+字面量：对象表示法，{}。
+
 变量：
     js变量是松散类型的，即可以保存任何类型的数据。
     var标识局部变量声明。不加var则变成全局变量。（不推荐）
@@ -335,6 +337,28 @@ bool操作：
             执行逻辑进入函数时，函数环境被push到环境栈；执行后，弹出。
         作用域链：
             try-catch，with可以延长作用域链
+        环境栈：
+            当js顺序执行语句，到不同的函数时，会根据当前执行环境的变化形成一个环境栈。每到执行一个函数时就将此函数的执行环境推入环境栈，在执行后再弹出。理解环境栈的作用，可看下面两段js语句：
+                var name = "a";
+                function parent(){
+                    var name = "b";
+                    function child(){
+                        return name;
+                    }
+                    return child;
+                }
+                parent()();
+                ============================
+                var name = "a";
+                function parent(){
+                    var name = "b";
+                    function child(){
+                        return name;
+                    }
+                    return child();
+                }
+                parent();
+                两段语句唯一的不同就在环境栈，其它行为是一致的。
         js没有块级作用域！
         声明变量时使用“var”声明，则变量添加到最近的环境。如果不使用“var”声明，则添加到全局环境。
             变量被访问时才添加。
@@ -627,7 +651,7 @@ bool操作：
                 function Person(name){
                     this.name = name;
                     if (typeof this.getName != "function")
-                        this.prototype.getName = function(){
+                        Person.prototype.getName = function(){
                             return this.name;
                         }
                 }
@@ -704,6 +728,14 @@ bool操作：
                 SuperType.call(this,name);
             }
             extendType(SubType, SuperType);
+
+对象创建、继承的思路总结：
+    1. 为了方法复用，不应在构造函数中创建方法，而是使用原型：Con.prototype.method = function(){}
+    2. 为了避免不同子类实例间继承自同一父类的属性相互干涉，属性的继承不应使用原型。属性、方法的继承分别处理
+    3. 属性的继承可通过借用构造函数
+    4. 方法和原型链的继承可通过寄生函数（直接调用父类构造函数会导致重复调用），通过计生函数直接拷贝父类的原型副本
+        这是因为父类的属性已经通过原则3继承了，父类的方法和原型链都在原型里面（根据原则1）
+
 
 函数表达式：
     递归：
@@ -844,3 +876,6 @@ BOM：
         主window的parent和top都和window相等。
         self始终等于window。
 
+最佳实现：
+    用“||”实现默认值：var x = obj.name || "default";
+    用“&&”避免检索undefined对象导致抛出错误：var x = obj.sub && obj.sub.name;
