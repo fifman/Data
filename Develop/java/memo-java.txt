@@ -201,3 +201,19 @@ final对象指引用不变，对象内部可变。
 
 接口中的域是隐性static、final的，方法都是隐性public的，不需要public关键字。
 
+
+
+# 并发 #
+java没有使用进程，而是使用基于顺序编程的线程来实现并发。这是为了OS透明性。有些OS不支持多进程。
+Thread中执行的Task中抛出的异常不会传播到main，因此需要每个Task主动catch、处理异常。
+sleep()会抛出InterruptedException。在sleep时，scheduler会切换线程。
+setPiority()要放在run()里面，否则当前进程不对。
+
+daemon thread:
+    只要有一个非daemon线程在运行，daemon threads就不会终止。但只要所有非daemon threads完成，daemon threads就会终止。    线程为daemon时，它创建的新线程也为daemon。
+    daemon线程不会执行finally clause！！！
+
+不要在构造器中start()。因为对象构造还未完成，线程可能访问不稳定的对象。
+
+
+
