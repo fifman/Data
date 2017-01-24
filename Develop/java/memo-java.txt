@@ -222,5 +222,25 @@ join():
     join()里可以传递时间参数，待时间完后不管t是否执行完，都返回。
     t.interrupt()可以打断join()。因此join()需要try-catch块。
 
+主线程中不能catch子线程中抛出的异常，需要用到Thread.UncaughtExceptionHandler。
+
+线程之间不应互相依赖，因为无法保证线程之间的顺序以及线程仍然有效（没有异常抛出或停止）。
+
+++、--等自我递增、递减操作是非原子操作！！！因此可能发生并发问题。
+
+mutex：互斥锁
+
+synchronized：一旦一个object的一个synchronized方法被调用，那么所有其它此object的synchronized方法都不能访问。任何对象都存在一个简单锁。
+
+synchronized static方法对class有一个锁。因此能避免线程冲突。
+
+注意：锁住的对象的非synchronized方法仍然能访问。
+
+显式lock：
+lock.unlock()必须在try-catch语句的finally clause中，否则可能无法释放。
+方法必须在try块里返回，否则unlock先于return执行，存在暴露资源的风险。
+显式lock更灵活，能够多次尝试获取Lock，设置获取lock失败后的处置，等等，这样能缓解synchronized方法带来的阻塞。通过finally clause，能够让程序在方法异常后整理状态。
+
+
 
 
