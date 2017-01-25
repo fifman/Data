@@ -241,6 +241,23 @@ lock.unlock()必须在try-catch语句的finally clause中，否则可能无法释放。
 方法必须在try块里返回，否则unlock先于return执行，存在暴露资源的风险。
 显式lock更灵活，能够多次尝试获取Lock，设置获取lock失败后的处置，等等，这样能缓解synchronized方法带来的阻塞。通过finally clause，能够让程序在方法异常后整理状态。
 
+word-tearing：对于“简单操作”和大部分主类型来说，是原子操作。但是，在读写long和double类型数据时，JVM有可能分两次操作（64bit分成两个32bit）。用volatile关键字定义变量（JSE5前不正确）后可避免这一点，实现原子操作（注意是原子操作，不是线程安全）。
+
+原子操作不一定是线程安全的。
+
+多核系统中，visibility很关键。一个核中的某任务的操作，即使是原子性的，也未必被其它核可见，因为有可能存储在单核的缓存中。但同步机制强制操作结果在应用范围内可见。volatile关键字也可保证可视性，即使存在本地cache。它强制属性读写发生在主memory。
+
+如果有多个任务对一个field直接访问，那么需要volatile关键词，否则只需要synchronized保护即可。任务本身的操作对任务必然可见，所以如果只有一个任务直接访问field，那么不需要volatile关键词。
+
+volatile在field的值取决于之前的值时失效（例如++，--等递增、递减操作）。当field的值被其它field约束时也失效。典型的应用volatile关键词的场景是类只存在一个可变field时。
+
+volatile禁止field被缓存，读写直接发生在主memory，同时禁止compiler优化访问顺序。但它不能保证原子性。当多个任务（此处的任务自然指线程任务）能够直接访问field，并至少有一个任务要写时，需要用到volatile。
+
+synchronized块：
+能使用synchronized块。隐式块需要一个对象的锁，显式块直接调用ReentrantLock对象。
+
+使用Threadlocal可以使不同线程访问同一个变量的不同储存。每个线程都会获得一个此变量的local储存。
+
 
 
 
