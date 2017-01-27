@@ -258,6 +258,53 @@ synchronized块：
 
 使用Threadlocal可以使不同线程访问同一个变量的不同储存。每个线程都会获得一个此变量的local储存。
 
+线程四状态：新建、可执行、阻塞、死亡。
+阻塞原因：
+    sleep();
+    wait();
+    等待I/O执行完毕
+    线程等待获取锁。（想执行synchronized方法但被锁住）
+在阻塞过程中打断，可用interrupt方法。此时会抛出InterruptedException。
+interrupt方法被调用时，如果线程处于阻塞状态，会抛出InterruptedException，否则不抛出。如果线程当时不在阻塞状态，继续往下执行，直到等它执行到阻塞块时，就会抛出异常。否则会正常执行下去。
+Executor对象的shutdownNow()方法可以cancel所有它执行的线程。如果只想cancel一个线程，需要用submit()返回一个Future对象。调Future对象的cancel()方法来cancel。
 
+IO和synchronized阻塞是无法打断的。一个本办法是在发送打断时同时关闭IO资源，可以避免阻塞。此时需要注意的是，线程不一定会处于“打断”状态。例如，Socket会处于打断状态，而System.in则会处于停止，isInterrupted()为false。
+nio类则可以直接打断，不需要关闭IO资源。
 
+同一个线程可以调用锁对象的多个不同的同步方法，不需要等锁释放。
 
+任务被ReentrantLock阻塞时可以打断。（JSE5新特性。）打断后ReentrantLock的lockInterruptibly()方法会抛出InterruptedException异常。需要用lockInterruptibly()方法。
+
+thread.interrupt()只在thread处于阻塞时有效。thread不在阻塞状态时，interrupt()无效。interrupt()会设置interrupted状态。通过调用interrupted()方法，不仅能检查interrupted状态，而且会清除此状态。
+
+检查Interrupted状态的通常做法：
+try{
+    while(!Thread.interrupted()){ // Thread.interrupted()方法判断thread是否处于打断状态。
+        try{
+            create object!
+        }finally{   //在此处需要finally clause，用来清理对象。注意没有catch clause！
+            cleanup objects!
+        }
+    }
+}catch(InterruptedException ex){
+}finally{
+}
+
+busy waiting: idle循环检查状态，导致cpu空转。
+sleep()和yield()不会释放对象锁。wait()会。wait()、notify()方法只能在synchronized方法或块中使用。否则运行时会抛异常。
+        while (waxOn == false)
+            wait();
+通常需要使用while来判断标志位，使得wait()方法发生在正确的状态。也就是说，每次通过notify()苏醒时，任务不应该马上执行，而是需要判断是否处于正确的状态，有正确的理由执行下一步。如果不是，则需要继续wait()直到正确的理由成立。因此，需要while语句来进行判断，是否可以执行下一步。
+
+可能出错：
+while(condition){
+    //point 1
+    synchronized(obj){
+        obj.wait();
+    }
+}
+因为while语句没有被synchronized，point 1时线程可能会切换到另一个线程。此时另一个线程发出notify()，导致notify在wait前发送，被忽略。从而无限循环下去。正确做法：
+synchronized(obj){
+    while(condition)
+        obj.wait();
+}
