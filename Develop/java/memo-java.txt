@@ -308,3 +308,26 @@ synchronized(obj){
     while(condition)
         obj.wait();
 }
+
+LinkedBlockingQuene：无限多元素
+ArrayBlockingQuene：有限个元素
+
+thread.run()会直接在本地线程中执行，而不是产生一个新线程。此时其实就是普通的对象方法调用。
+
+PipedReader是可打断的，不同于通常的I/O接口。
+
+死锁：死循环。任务在等待下一个任务解锁，而下一个任务又等待其它任务，直到最后等待第一个任务解锁。
+
+当以下四种情况出现时，可能发生死锁：
+1. 资源互斥：资源被一个任务消费时，其它任务不能共享。
+2. 至少有一个任务，掌握一个资源，同时在等待另一个资源。
+3. 资源无法被强制释放。任务只能被动等待资源释放。
+4. 可能出现循环等待。
+
+java library的方法是否线程安全？需要自己注意，case-by-case。
+
+CountDownLatch：countDown()计数，计到0时解锁，await()结束。
+CyclicBarrier：多任务平行进行，所有任务调用await()后才能执行下一步。然后循环往复。
+DelayQuene: 按照截止日期先后排序
+PriorityBlockingQueue：优先级队列。
+
