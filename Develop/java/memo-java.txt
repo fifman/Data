@@ -330,4 +330,31 @@ CountDownLatch：countDown()计数，计到0时解锁，await()结束。
 CyclicBarrier：多任务平行进行，所有任务调用await()后才能执行下一步。然后循环往复。
 DelayQuene: 按照截止日期先后排序
 PriorityBlockingQueue：优先级队列。
+Collections.synchronizedList()将List的方法synchronized。
+Semaphore：限制访问的任务数。到上限后阻塞。
+Exchanger：当exchange()被执行一次时阻塞，直到第二次执行时数据交换。
 
+性能分析：Lock比synchronized一般来说更有效，而且性能更稳定。synchronized性能不稳定。
+AtomicObjects一般只用于一个属性，多属性时不要使用多个。
+
+Lock-free容器：修改容器和读容器可同时发生，但读只能读取“完成了”的修改。正在发生的修改是不会被读取的：
+CopyOnWriteArrayList
+CopyOnWriteArraySet
+ConcurrentHashMap
+ConcurrentLinkedQueue
+
+ReadWriteLock：写发生很少，读发生很多时，可以尝试。
+
+
+= I/O =
+
+InputStream\OutputStream需要被FilterInputStream、FilterOutputStream装饰后才能形成可用IO接口:
+DataInputStream，BufferedInputStream：两种FilterInputStream
+DataInputStream用于读取主类型数据。
+
+FilterOutputStream：
+DataOutputStream、PrintStream、BufferedOutputStream
+PrintStream：形成格式化输出。但存在一些问题，例如异常处理、国际化、跨平台的格式化等。PrintWriter更好。
+
+InputStream、OutputStream基于byte，Reader、Writer基于字符。
+InputStreamReader将InputStream转换成Reader，OutputStreamWriter将OutputStream转换成Writer。
