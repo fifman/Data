@@ -358,3 +358,92 @@ PrintStream£ºĞÎ³É¸ñÊ½»¯Êä³ö¡£µ«´æÔÚÒ»Ğ©ÎÊÌâ£¬ÀıÈçÒì³£´¦Àí¡¢¹ú¼Ê»¯¡¢¿çÆ½Ì¨µÄ¸ñÊ½»
 
 InputStream¡¢OutputStream»ùÓÚbyte£¬Reader¡¢Writer»ùÓÚ×Ö·û¡£
 InputStreamReader½«InputStream×ª»»³ÉReader£¬OutputStreamWriter½«OutputStream×ª»»³ÉWriter¡£
+
+Sources & sinks: Java 1.0 class:
+Corresponding Java 1.1 class
+InputStream
+Reader
+adapter:
+InputStreamReader
+OutputStream
+Writer
+adapter:
+OutputStreamWriter
+FilelnputStream
+FileReader
+FileOutputStream
+FileWriter
+StringBufferlnputStream
+(deprecated)
+StringReader
+(no corresponding class)
+StringWriter
+ByteArrayInputStream
+CharArrayReader
+ByteArrayOutputStream
+CharArrayWriter
+PipedInputStream
+PipedReader
+PipedOutputStream
+PipedWriter
+
+RandomAccessFile£º±£´æÒ»ÏµÁĞ¹Ì¶¨´óĞ¡µÄ¼ÇÂ¼£¬Òò´Ë¿ÉÒÔ²éÕÒ¡¢²Ù×÷¼ÇÂ¼¡£nioÀàÈ¡´úÁËËüµÄ¹¦ÄÜ¡£
+
+new BufferedReader(new FileReader(new File("path"))).readline();
+DataInputStream.available()·½·¨±íÊ¾µÄÊÇÃ»×èÈûÊ±ÄÜ±»¶ÁÈ¡µÄbytes¡£Òò´Ë²»Ò»¶¨´ú±íµÄÊÇStreamµÄÄ©Î²¡£¶ÁÎÄ¼şÊ±´ú±íÄ©Î²£¬µ«¶ÁÆäËüÔ´Ê±Î´±ØÈç´Ë¡£
+PrintWriterĞèÒªµ÷close()À´±£Ö¤flush¡£
+
+DataOutputStreamºÍDataInputStreamÄÜ±£Ö¤java¿çÆ½Ì¨Êı¾İ»¹Ô­¡£ÓÃËüÃÇĞ´StringÊ±Î¨Ò»µÄ¿É¿¿·½Ê½ÊÇÓÃUTF-8±àÂë£¬²¢µ÷ÓÃreadUTF()¡¢writeUTF()½Ó¿Ú¡£×¢Òâ£¬ÕâÁ½¸ö½Ó¿ÚÊ¹ÓÃµÄÊÇUTF-8±äÖÖ£¬ËùÒÔÖ»ÄÜÔÚjavaÄÚ²¿Ê¹ÓÃ¡£Èç¹ûÔÚÍâ²¿³ÌĞòĞèÒªÓÃµ½½Ó¿ÚµÄÊä³ö£¬ĞèÒªĞ´ÌØÊâ´úÂë¡£
+
+System.outºÍSystem.errÒÑ¾­wrapped£¬¿ÉÒÔÖ±½ÓÓÃ¡£System.inÔò±ØĞëwrapºó²ÅÄÜÓÃ¡£ÀàËÆÓÚwrap InputStream¡£
+System.outÊÇOutputStream£¬¿ÉÍ¨¹ınew PrintWriter(out, true)×ª³ÉWriter¡£true±íÊ¾×Ô¶¯flushing¡£
+System.setIn()¡¢setOut()¡¢setErr()ÓÃÀ´redirect±ê×¼ÊäÈëÊä³ö¡£
+
+ProcessBuilderÓÃÓÚÖ´ĞĞconsoleÃüÁî¡£Process.getInputStream()¡¢getErrorStream()¿É¶ÁÈ¡Êä³ö¡£
+
+nioÊµÏÖË¼Â·£ºchannelÊı¾İÔØÌå£¬buffer×÷Îª´æ¡¢È¡Êı¾İ¹¤¾ßÀ´»ØÔËÔØÊı¾İ¡£»ùÓÚbyte¡£FileInputStream£¬FileOutputStream±»ÖØĞ´ÊµÏÖ´Ë»úÖÆ¡£Reader¡¢Writer»ùÓÚ×Ö·û£¬ËùÒÔ²»ÄÜÊ¹ÓÃ´Ë»úÖÆ¡£java.nio.channels.ChannelsÌá¹©ÁË¹¤¾ß´ÓchannelsÖĞ»ñÈ¡Reader¡¢Writer¡£
+getChannel()·½·¨»ñÈ¡FileChannel¡£ByteBufferÓÃÓÚ¶ÁĞ´FileChannel¡£ByteBuffer.allocate(size)»ñÈ¡ByteBuffer¡£wrap()Ê¹ÓÃbytearray×÷Îª´¢´æ¡£ÔÚ¶ÁÈ¡Êı¾İÊ±£¬ByteBuffer.flip()±ØĞë±»µ÷ÓÃ¡£Ğ´Êı¾İÊ±£¬clear()±ØĞë±»µ÷ÓÃ¡£
+transferTo()¡¢transferFrom()ÄÜÖ±½ÓÁ¬½ÓÁ½¸öchannels¡£
+
+ByteBuffer.asCharBuffer()»áÊ¹ÓÃÏµÍ³Ä¬ÈÏ±àÂë¡£ViewBuffer¿É¶ÁÈ¡ByteBuffer£¬°´ÕÕÖ÷ÀàĞÍµÄÄ£Ê½¡£Èç¹ûÖ÷ÀàĞÍĞèÒªÕ¼ÓÃÁ½¸öbytesµÄ»°£¬ĞèÒª×¢ÒâÁ½¸ö×Ö½ÚµÄÅÅĞò¡£BIG_ENDIAN»òLITTLE_ENDIAN¡£
+
+Buffer²Ù×÷
+capacity()          Returns the buffer¡¯s capacity.
+clear()             Clears the buffer, sets the position to zero, and limit to capacity. You call this method to 
+                    overwrite an existing buffer.
+flip()              Sets limit to position and position to zero. This method is used to prepare the buffer for a 
+                    read after data has been written into it.
+limit()             Returns the value of limit.
+limit(int lim)      Sets the value of limit.
+mark()              Sets mark at position.
+position()          Returns the value of position.
+position(int pos)   Sets the value of position.
+remaining()         Returns (limit - position).
+hasRemaining()      Returns true if there are any elements between position and limit.
+
+Memory-mapped Files
+FileChannel.map(FileChannel.MapMode.READ_WRITE, 0, length);
+ÄÜ½«´óÎÄ¼şÓ³Éäµ½ÄÚ´æ£¬£¨ÄÚ´æÊµ¼ÊÉÏÖ»ÓĞ²¿·ÖÎÄ¼şÄÚÈİ£©
+Ê¹ÓÃmapÊ±£¬Èç¹ûÒªĞ´£¬±ØĞëÊ¹ÓÃRandomAccessFile¡£
+
+JavaµÄÎÄ¼şËøÖ±½ÓÊ¹ÓÃOSÏµÍ³µÄËø»úÖÆ£¬Òò´Ë¶ÔÆäËü²Ù×÷¡¢ÆäËüJVM¡¢ÆäËüÓïÑÔ¿É¼û¡£
+FileChannel.tryLock()ÊÇ²»×èÈûµÄ£¬lock()ÊÇ×èÈûµÄ¡£tryLock()È¡²»µ½Ëø»áÖ±½Ó·µ»Ønull£¬lock()»á×èÈûµ½È¡µ½ËøÎªÖ¹¡£FileLock.release()ÊÍ·ÅËø¡£
+FileChannel.close()»òÏß³Ì´ò¶ÏÄÜ¹»Í£Ö¹lock()µÄ×èÈû¡£
+Ò²ÄÜËø×¡ÎÄ¼şÒ»²¿·Ö¡£tryLock/lock(long position, long size, boolean shared);
+
+¶ÔÏóĞòÁĞ»¯
+ObjectOutputStream.writeObject()
+×Ô¶¨ÒåÏµÁĞ»¯£º
+Externalizable£¬Á½¸ö·½·¨£º
+writeExternal
+readExternal
+transient£º±ÜÃâ´ËÊôĞÔĞòÁĞ»¯
+
+ÔÚÍ¬Ò»¸öObjectOutputStreamÀïĞòÁĞ»¯¶à´Î¶ÔÏó£¬´Ë¶ÔÏó²»»á±»ÖØ¸´»Ö¸´¡£µ«²»Í¬StreamÔò»áÖØ¸´¡£
+
+Class¶ÔÏóÊÇ¿ÉĞòÁĞ»¯µÄ£¬µ«ÊÇ¾²Ì¬ÊôĞÔ±ØĞëĞ´ÌØÊâ´úÂë£¡serializeStaticState();
+
+Preferences API£ºĞòÁĞ»¯£¨³Ö¾Ã»¯£©Ö÷ÀàĞÍºÍ×Ö·û´®¡£×Ö·û´®³¤¶È²»ÄÜ³¬¹ı8K¡£
+
+Array±»´´½¨ºó»á×Ô¶¯³õÊ¼»¯£¬Ã¿¸öÔªËØ×Ô¶¯¸³Öµnull»òÕß0£¬'0'£¬false¡£
+

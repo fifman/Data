@@ -1,1 +1,9 @@
 data sink：计算技术语，任何能接受data的媒介。
+
+In computing, a sink, event sink or data sink is a class or function designed to receive incoming events from another object or function. This is commonly implemented in C++ as callbacks. Other Object-oriented languages, such as Java and C#, have built-in support for sinks by allowing events to be fired to delegate functions.
+
+Due to lack of formal definition, a sink is often misconstrued with a gateway which is a similar construct but the latter is usually either an end-point or allows bi-direction communication between dissimilar systems, as opposed to just an event input point[citation needed]. This is often seen in C++ and hardware-related programming[citation needed], thus the choice of nomenclature by a developer usually depends on whether the agent acting on a sink is a producer or consumer of the sink content.
+
+The word sink has been used for both input and output in the industry. Mobile sink is proposed to save sensor energy for multihop communication in transferring data to a base station (sink) in wireless sensor networks.
+
+write from scratch：从头开始编写
