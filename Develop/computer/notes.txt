@@ -7,3 +7,7 @@ Due to lack of formal definition, a sink is often misconstrued with a gateway wh
 The word sink has been used for both input and output in the industry. Mobile sink is proposed to save sensor energy for multihop communication in transferring data to a base station (sink) in wireless sensor networks.
 
 write from scratch：从头开始编写
+
+overlay network：覆盖网络，在网络上组成的网络，例如端到端网络或者cs结构网络。
+
+multicast：组播，多点传送。1-n或者n-n的信息同时发送（例如视频网络会议等）。
