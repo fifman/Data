@@ -1,4 +1,5 @@
 0.1.0
+memo-tools	/Users/fifman/Data/Develop/linux/memo-tools.txt		
 java	/Users/fifman/Data/Develop/java/memo-java.txt	1	^后期绑定：$
 js	/Users/fifman/Data/Develop/javascript/memo-javascript.txt	1	^javascript补全需要在用户目录设置\.tern-config或者在项目根目录设置\.tern-project文件。$
 init-mongodb	/Users/fifman/Data/Develop/mongodb/init-mongodb.js	30	^db2\.accounts\.bank\.ccb\.insert({ _id: 1, card_no: 4895920340414134, expire_year: 2020, expire_month: 9, owner_name: \"FENG YI CHENG\", security_code: 519, type: \"visa\" })$
