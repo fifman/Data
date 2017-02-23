@@ -11,3 +11,12 @@ write from scratch：从头开始编写
 overlay network：覆盖网络，在网络上组成的网络，例如端到端网络或者cs结构网络。
 
 multicast：组播，多点传送。1-n或者n-n的信息同时发送（例如视频网络会议等）。
+
+ip网段：
+    A类地址：10.0.0.0--10.255.255.255
+    B类地址：172.16.0.0--172.31.255.255 
+    C类地址：192.168.0.0--192.168.255.255
+
+round-trip time (RTT): the time cost between the start of sending a message and the start of receiving the response.
+
+Least Recently Used (LRU): cache replacement policy
