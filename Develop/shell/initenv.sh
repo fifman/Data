@@ -4,7 +4,7 @@ git config --global user.name "fifman"
 git config --global user.email "1264380449@qq.com"
 
 # 修正stow不能正确在babun上使用的问题
-cd /usr/lib/perl5/vendor_perl/5.14 
+cd /usr/lib/perl5/vendor_perl/5.14  || exit
 ln -s ../5.22/Stow && ln -s ../5.22/Stow.pm
 
 # install vundle
@@ -17,7 +17,7 @@ sudo apt-get install oracle-java8-set-default
 
 # install rename of perl
 git clone https://github.com/subogero/rename.git
-cd rename
+cd rename || exit
 sudo make install
 cd ..
 rm -rf rename

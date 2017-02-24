@@ -1,0 +1,31 @@
+redis key:
+    binary safe: any binary sequence can by used as a key, empty string too
+    key with format, not too long is better, aka "user-major:1000"
+
+string value:
+    <=512M
+    
+redis collections:
+    do not need to create collections, just use the commands to add elements pretending the collection already exits. Redis creates the key-value pair automatically.
+    no empty collection. If a collection is empty, the key-value pair is destroyed.
+
+redis pipelining
+
+redis transaction: does not support rollback!
+
+redis optimistic lock: keyword "watch"
+
+    If the same client does watch-set-multi-exec then it fails (as in my first post)
+    If the same client does watch-multi-set-exec - it succeeds
+    If client A does watch, client B does set, client A does multi-exec then it fails
+    If client A does watch, client B does multi-set-exec, client A does multi-exec - it also fails (compare with case 2)
+    In other words, the docs should say that EXEC will fail in all cases when the key is modified unless it was done by the same client inside the watched multi/exec block.
+
+watch and expire:
+    If expire is called before watch, then transaction will succedd no matter whether key is expired in the transaction. (expire watch multi exec)
+    If watch expire multi exec, then fail.
+    If watch multi expire (called by the same transaction) exec, then succeed.
+
+Redis script:
+    transactional by default
+

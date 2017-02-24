@@ -1,0 +1,2 @@
+netcat: linux command nc, tcp/udp network listen/call. eg.. echo "ping\r\n" | localhost 6379 (redis ping)
+

@@ -1,0 +1,6 @@
+polipo:
+    默认只监听127.0.0.1(localhost)，需要设置proxyAddress让它监听全局ip，从而让远程host能够使用。
+
+terminal不能使用系统全局代理。需要使用额外的设置，如：
+export http_proxy=http://proxy.com:port
+export https_proxy=http://proxy.com:port

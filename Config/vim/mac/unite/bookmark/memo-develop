@@ -1,4 +1,8 @@
 0.1.0
+memo-redis	/Users/fifman/Data/Develop/Redis/memo-redis.txt	10	^    no empty collection\. If a collection is empty, the key-value pair is destroyed\.$
+linux-basic	/Users/fifman/Data/Develop/linux/basic.txt	2	^$
+computer	/Users/fifman/Data/Develop/computer/notes.txt	13	^multicast：组播，多点传送。1-n或者n-n的信息同时发送（例如视频网络会议等）。$
+memo-tools	/Users/fifman/Data/Develop/linux/memo-tools.txt		
 java	/Users/fifman/Data/Develop/java/memo-java.txt	1	^后期绑定：$
 js	/Users/fifman/Data/Develop/javascript/memo-javascript.txt	1	^javascript补全需要在用户目录设置\.tern-config或者在项目根目录设置\.tern-project文件。$
 init-mongodb	/Users/fifman/Data/Develop/mongodb/init-mongodb.js	30	^db2\.accounts\.bank\.ccb\.insert({ _id: 1, card_no: 4895920340414134, expire_year: 2020, expire_month: 9, owner_name: \"FENG YI CHENG\", security_code: 519, type: \"visa\" })$
