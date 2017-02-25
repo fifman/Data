@@ -26,3 +26,5 @@ ip网段：
 round-trip time (RTT): the time cost between the start of sending a message and the start of receiving the response.
 
 Least Recently Used (LRU): cache replacement policy
+
+type-safe: languages which protect the type of data is correct.

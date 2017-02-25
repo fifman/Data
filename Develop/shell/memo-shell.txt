@@ -1,3 +1,5 @@
 sudo launchctl stop com.openssh.sshd mac上停止ssh
 
 service ssh restart linux上重启ssh
+
+find path path ... -name "*pattern*" : find filename in dirs path with pattern "*pattern*"
