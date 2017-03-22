@@ -1,4 +1,5 @@
 0.1.0
+spring	/Users/fifman/Data/Develop/java/memo-spring.md	8	^$
 memo-shell	/Users/fifman/Data/Develop/shell/memo-shell.txt	5	^find path path \.\.\. -name \"\*pattern\*\" : find filename in dirs path with pattern \"\*pattern\*\"$
 memo-redis	/Users/fifman/Data/Develop/Redis/memo-redis.txt	10	^    no empty collection\. If a collection is empty, the key-value pair is destroyed\.$
 linux-basic	/Users/fifman/Data/Develop/linux/basic.txt	2	^$

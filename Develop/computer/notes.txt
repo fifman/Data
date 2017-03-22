@@ -28,3 +28,11 @@ round-trip time (RTT): the time cost between the start of sending a message and 
 Least Recently Used (LRU): cache replacement policy
 
 type-safe: languages which protect the type of data is correct.
+
+retrival: 检索
+
+compare-and-swap (compare-and-set): In computer science, compare-and-swap (CAS) is an atomic instruction used in multithreading to achieve synchronization. 在更新前先做旧值比较，只有旧值没有变化（没有被其它线程修改时），才更新新值。
+
+hash: 散列
+
+a divided by b: 分数表示，名词。x is greater than a divided by b: x>a/b
