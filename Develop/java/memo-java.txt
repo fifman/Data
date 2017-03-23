@@ -1,3 +1,12 @@
+String处理
+    String对象不可修改。因此诸如"aa"+"bb"+"cc"的连续操作时，其实可能是（根据JVM不同实现可能不一样）先生成了"aa"+"bb"的结果的临时对象，然后生成结果。
+    编译器有可能自动采取聪明的做法，内部使用StringBuilder。
+    即使如此，显式调用StringBuilder更能保证性能。因为编译器不能保证它能“聪明”地在所有情况下使用StringBuilder。例如在循环时，每次循环都会新生成StringBuilder。
+    StringBuffer.append()性能比StringBuilder要低，但能保证操作原子性。
+    预先指定StringBuffer大小可避免多次重新分配缓冲。
+    
+
+
 后期绑定：
 
 java默认后期绑定，调用方法时，实际调用的代码最后时刻才被确定。编译器确保方法存在并执行类型检查，但此时不知道确切代码。因此可以实现向上转型。
