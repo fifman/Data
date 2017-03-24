@@ -36,3 +36,5 @@ compare-and-swap (compare-and-set): In computer science, compare-and-swap (CAS) 
 hash: 散列
 
 a divided by b: 分数表示，名词。x is greater than a divided by b: x>a/b
+
+on-the-fly: 热，在执行过程中做配置或者改变 (随手)。包含两重意思：即时，临时。
