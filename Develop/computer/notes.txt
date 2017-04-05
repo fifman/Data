@@ -29,6 +29,7 @@ Least Recently Used (LRU): cache replacement policy
 
 type-safe: languages which protect the type of data is correct.
 
+<<<<<<< HEAD
 retrival: 检索
 
 compare-and-swap (compare-and-set): In computer science, compare-and-swap (CAS) is an atomic instruction used in multithreading to achieve synchronization. 在更新前先做旧值比较，只有旧值没有变化（没有被其它线程修改时），才更新新值。
@@ -47,3 +48,5 @@ cross-cutting concern:
 
 cohesive: 内聚
 decoupled: 解耦
+
+元编程（Metaprogramming）是指某类计算机程序的编写，这类计算机程序编写或者操纵其他程序（或者自身）作为它们的数据，或者在运行时完成部分本应在编译时完成的工作。很多情况下与手工编写全部代码相比工作效率更高。编写元程序的语言称之为元语言，被操作的语言称之为目标语言。一门语言同时也是自身的元语言的能力称之为反射。
