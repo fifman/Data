@@ -472,3 +472,33 @@ LinkedHashMap:
 
 Bridge method:
     用于桥接父泛型方法和子实际方法（已指定泛型）的方法，只存在于编译文件中。
+
+
+JVM:
+类加载
+
+类编译
+    字节码表达式
+        ”L<classname>;”表示的是类的实例。
+        “V”表示没有返回值（Void）
+        调用方法：
+            invokeinterface : 调用一个接口方法
+            invokespecial  : 调用一个初始化方法，私有方法或者父类的方法
+            invokestatic   : 调用静态方法
+            invokevirtual  : 调用实例方法
+        代码前的数字：字节偏移
+        类型表达：
+            Java Bytecode      Type           Description
+            B                  byte           signed byte
+            C                  char           Unicode character
+            D                  double         double-precision floating-point value
+            F                  float          single-precision floating-point value
+            I                  int            integer
+            J                  long           long integer
+            L<classname>       reference      an instance of class <classname>
+            S                  short          signed short
+            Z                  boolean        true or false
+            [                  reference      one array dimension
+    数据类型：
+        三种引用类型：
+            类、数组、接口
