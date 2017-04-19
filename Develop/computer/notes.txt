@@ -55,3 +55,10 @@ magic number: 魔数。很多类型的文件，其起始的几个字节的内容
 AST: abstract syntax tree: 抽象语法树
 
 p2p peer-to-peer 对等运算，点既为服务端，又为客户端
+
+
+an ensemble of: 一整套
+
+反向代理：代理接受外部请求，访问内部网络。普通代理接受内部请求，访问外部网络
+
+SPI service provider interface
