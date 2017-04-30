@@ -1,0 +1,1 @@
+netsh winhttp set proxy localhost:1080
