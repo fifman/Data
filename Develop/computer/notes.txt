@@ -29,4 +29,36 @@ Least Recently Used (LRU): cache replacement policy
 
 type-safe: languages which protect the type of data is correct.
 
+retrival: 检索
+
+compare-and-swap (compare-and-set): In computer science, compare-and-swap (CAS) is an atomic instruction used in multithreading to achieve synchronization. 在更新前先做旧值比较，只有旧值没有变化（没有被其它线程修改时），才更新新值。
+
+hash: 散列
+
+a divided by b: 分数表示，名词。x is greater than a divided by b: x>a/b
+
+on-the-fly: 热，在执行过程中做配置或者改变 (随手)。包含两重意思：即时，临时。
+
+externalized configuration：外接配置（不在源码内），通常指配置文件
+
+programming paradigm：编程模式
+
+cross-cutting concern: 
+
+cohesive: 内聚
+decoupled: 解耦
+
 元编程（Metaprogramming）是指某类计算机程序的编写，这类计算机程序编写或者操纵其他程序（或者自身）作为它们的数据，或者在运行时完成部分本应在编译时完成的工作。很多情况下与手工编写全部代码相比工作效率更高。编写元程序的语言称之为元语言，被操作的语言称之为目标语言。一门语言同时也是自身的元语言的能力称之为反射。
+
+magic number: 魔数。很多类型的文件，其起始的几个字节的内容是固定的（或是有意填充，或是本就如此）。根据这几个字节的内容就可以确定文件类型，因此这几个字节的内容被称为魔数 (magic number)。此外在一些程序代码中，程序员常常将在代码中出现但没有解释的数字常量或字符串称为魔数 (magic number)或魔字符串。
+
+AST: abstract syntax tree: 抽象语法树
+
+p2p peer-to-peer 对等运算，点既为服务端，又为客户端
+
+
+an ensemble of: 一整套
+
+反向代理：代理接受外部请求，访问内部网络。普通代理接受内部请求，访问外部网络
+
+SPI service provider interface

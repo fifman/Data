@@ -65,6 +65,8 @@ java.lang自动导入
 
 等号左边必须是已命名的变量。a=4, 不能4=a。右边必须能生成一个值。
 
+允许a=b=c=1。实际效果：a=(b=(c=1))
+
 值传递：
 
 基本数值直接传递。传递双方可以继续操作、修改，互不受影响。对象值传递传递的是引用，传递双方会共享一个对象，修改会相互影响。
@@ -456,3 +458,47 @@ Preferences API：序列化（持久化）主类型和字符串。字符串长度不能超过8K。
 
 Array被创建后会自动初始化，每个元素自动赋值null或者0，'0'，false。
 
+HashMap: 为了快速查询，使用了散列链数组的结构。将key转成hash，值相同的hash组成链，存在数组的index位置（index就为Hash的值）。
+HashMap在发生结构性改变时（key增加或减少，对已有key的value改变不是结构性改变），只能在外部保证同步性。
+Iterator是"fail-fast"的，如果Iterator过程中Map发生结构性改变，会尽量立即抛出异常。但此特性只是"best-effort"的，不保证必然抛出。因此不能用此异常作为程序逻辑判断。
+Hashmap.keySet()方法返回的set，和map保持同步。改变set中对象会同时改变map中对象，反之亦然。collection也一样。
+
+LinkedHashMap:
+    iteration排序以key被插入的顺序为准。key被重新插入时，不会改变顺序。
+    LinkedHashMap的遍历复杂度取决于size，而HashMap取决于capacity。
+    对于LinkedHashMap来说，结构性改变不只是key增减，而且影响遍历顺序的也是结构性改变。
+
+
+
+Bridge method:
+    用于桥接父泛型方法和子实际方法（已指定泛型）的方法，只存在于编译文件中。
+
+
+JVM:
+类加载
+
+类编译
+    字节码表达式
+        ”L<classname>;”表示的是类的实例。
+        “V”表示没有返回值（Void）
+        调用方法：
+            invokeinterface : 调用一个接口方法
+            invokespecial  : 调用一个初始化方法，私有方法或者父类的方法
+            invokestatic   : 调用静态方法
+            invokevirtual  : 调用实例方法
+        代码前的数字：字节偏移
+        类型表达：
+            Java Bytecode      Type           Description
+            B                  byte           signed byte
+            C                  char           Unicode character
+            D                  double         double-precision floating-point value
+            F                  float          single-precision floating-point value
+            I                  int            integer
+            J                  long           long integer
+            L<classname>       reference      an instance of class <classname>
+            S                  short          signed short
+            Z                  boolean        true or false
+            [                  reference      one array dimension
+    数据类型：
+        三种引用类型：
+            类、数组、接口
