@@ -62,3 +62,7 @@ an ensemble of: 一整套
 反向代理：代理接受外部请求，访问内部网络。普通代理接受内部请求，访问外部网络
 
 SPI service provider interface
+
+tty:终端
+pty:虚拟终端，远程使用
+
