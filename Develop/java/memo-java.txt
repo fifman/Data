@@ -1,3 +1,10 @@
+安装：
+
+brew tap caskroom/versions
+brew install java7
+brew install java6
+
+
 String处理
     String对象不可修改。因此诸如"aa"+"bb"+"cc"的连续操作时，其实可能是（根据JVM不同实现可能不一样）先生成了"aa"+"bb"的结果的临时对象，然后生成结果。
     编译器有可能自动采取聪明的做法，内部使用StringBuilder。
@@ -502,3 +509,13 @@ JVM:
     数据类型：
         三种引用类型：
             类、数组、接口
+
+
+
+tomcat install:
+1. download
+2. dir: /usr/local/tomcat
+3. 用户\组创建
+4. systemctl 
+5. tomcat user setting
+6. tomcat manager app META-INF/context.xml setting

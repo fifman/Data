@@ -62,3 +62,19 @@ an ensemble of: 一整套
 反向代理：代理接受外部请求，访问内部网络。普通代理接受内部请求，访问外部网络
 
 SPI service provider interface
+
+VPS:虚拟服务器
+虚拟主机：文件夹主站。控制权不在自己手上
+
+
+I/O多路复用 I/O Multiplexing
+
+c10k problem: 单线程处理并发10000连接
+
+ipc inter-process communication
+
+rpc remote-procedure communication
+
+allocate 分配
+
+apiworkbench raml
