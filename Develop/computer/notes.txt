@@ -78,3 +78,7 @@ rpc remote-procedure communication
 allocate 分配
 
 apiworkbench raml
+
+tty:终端
+pty:虚拟终端，远程使用
+
