@@ -6,3 +6,7 @@ find path path ... -name "*pattern*" : find filename in dirs path with pattern "
 
 sudo firewall-cmd --add-port=8080/tcp --permanent centos开启端口
 sudo firewall-cmd --reload 防火墙修改设置后生效
+
+zip -r zipname dirname: zip a directory
+
+diff -r dir1 dir2 compare two directories

@@ -1,1 +1,52 @@
+cookiecutter: 原型构建工具
 
+python class:
+    
+    namespace: 
+
+        built-in namespace                内部命名空间                                       从启动到解释器退出
+        module global namespace           模块                                               从读取时到解释器退出
+        execution namespace               解释器执行模块(top-level invocation)               解释器执行时，视为单独的global模块__main__
+        function local namespace   函数内部，递归每个独立    函数调用时--函数返回或异常
+
+    scope:
+
+        the innermost scope                          local names
+        the scopes of any enclosing functions        which are searched starting with the nearest enclosing scope, contains non-local, but also non-global names
+        the next-to-last scope                       contains the current module’s global names
+        the outermost scope (searched last)          is the namespace containing built-in names
+
+    local名和global名不应同名，否则global名无法读取。
+    global名在local域里只读。一旦local域里定义了同名local名，则global名被覆盖，无法访问。
+    nonlocal关键字用于enclosing functions
+    global关键字用于global scope
+
+    method:
+        inst.method(...) == class.method(inst, ...)
+        baseClass.method(self, ...)可用于扩展父类方法
+
+    access mechanism:
+        descriptor是被__getattribute__方法调用的。因此，复写__getattribute__方法会导致descriptor无法自动调用。
+        类和方法定义必须在任何对此类、方法的调用前先执行
+
+    class属性不能被内部方法直接访问。
+
+    __getattribute__:
+        此方法内不能引用self的属性，否则会造成死循环。正确的实现此方法是调用父类的__getattribute__方法。
+
+    metaclass:
+        先执行class body
+        然后执行metaclass(name, bases, dict)
+            name: class name
+            bases: tuple of base classes, 没有则为()
+            dict: body定义的变量、方法
+        metaclass决定方法：
+            1. 先看是否有dict['__metaclass__']
+            2. 再不从base classes获取
+            3. 再不从global __metaclass__中取
+            4. type
+        
+
+function:
+    方法的内部body不会在定义时执行，必须在第一次调用时创建命名空间
+    相对地，class的body在定义时就会执行。

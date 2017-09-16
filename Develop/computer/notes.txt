@@ -82,3 +82,15 @@ apiworkbench raml
 tty:终端
 pty:虚拟终端，远程使用
 
+duck typing: 类型检查在运行时进行，而且只要对象拥有符合的方法或者属性，就被视作合法类型。
+
+
+skeleton programmming
+
+template method pattern
+
+css speech bubbles
+
+tail call optimization
+
+multi-paradigm 多范式语言

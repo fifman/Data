@@ -1,3 +1,8 @@
+gradle
+    gradle build -x test: skip test
+    gradle dependencies --configuration compile: compile dependencies
+
+
 安装：
 
 brew tap caskroom/versions
@@ -519,3 +524,16 @@ tomcat install:
 4. systemctl 
 5. tomcat user setting
 6. tomcat manager app META-INF/context.xml setting
+
+
+weblogic password change:
+1. 删除adminserver下所有文件
+2. 新建security文件夹
+3. 创建boot.properties文件
+4. 写入
+    username=xxx
+    password=xxx
+
+gradle:
+
+gradle help --task test: 
