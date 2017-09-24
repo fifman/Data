@@ -1,2 +1,8 @@
-netcat: linux command nc, tcp/udp network listen/call. eg.. echo "ping\r\n" | localhost 6379 (redis ping)
+netstat: linux command nc, tcp/udp network listen/call. eg.. echo "ping\r\n" | localhost 6379 (redis ping)
+
+lsof -i:21: search port
+
+apt list --installed
+
+pid location: /var/run
 

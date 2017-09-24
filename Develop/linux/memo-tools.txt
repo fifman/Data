@@ -4,3 +4,9 @@ polipo:
 terminal不能使用系统全局代理。需要使用额外的设置，如：
 export http_proxy=http://proxy.com:port
 export https_proxy=http://proxy.com:port
+
+
+vsftpd:
+    使用ssl时，需要配置：
+        listen=YES
+        listen_ipv6=NO

@@ -91,9 +91,23 @@
     + PropertyPlaceholderConfigurer: 使用properties文件定义bean属性
 
 ### Annotation
-    + 通过BeanPostProcessor加载annotated beans
-    + Component、Repository、Service、Controller
-    + meta-annotations：使annotation能够组合
-    + `<context:component-scan base-package="org.example"/>`
-    + custom filter扫描组件
-    + 扫描可采取策略，自动为组件取名
+
++ 通过BeanPostProcessor加载annotated beans
++ Component、Repository、Service、Controller
++ meta-annotations：使annotation能够组合
++ `<context:component-scan base-package="org.example"/>`
++ custom filter扫描组件
++ 扫描可采取策略，自动为组件取名
+
+
+# Spring-data-commons
+
+## Core concept
+
+@NoRepositoryBean: 如果只是中间接口，不需要spring创建对应实现实例，则必须加上注释。
+
+如果多个spring-data模块混用，则需要严格配置。三种方法：
++ 继承指定了持久化方法的Repository，如JpaRepository
++ 在实体类的Annotation中指定持久化方法。例如@Entity是JPA，@Document是MongoDB。
++ `@EnableJpaRepositories(basePackages = "com.acme.repositories.jpa")`这样，设置包范围
+

@@ -63,6 +63,34 @@ an ensemble of: 一整套
 
 SPI service provider interface
 
+VPS:虚拟服务器
+虚拟主机：文件夹主站。控制权不在自己手上
+
+
+I/O多路复用 I/O Multiplexing
+
+c10k problem: 单线程处理并发10000连接
+
+ipc inter-process communication
+
+rpc remote-procedure communication
+
+allocate 分配
+
+apiworkbench raml
+
 tty:终端
 pty:虚拟终端，远程使用
 
+duck typing: 类型检查在运行时进行，而且只要对象拥有符合的方法或者属性，就被视作合法类型。
+
+
+skeleton programmming
+
+template method pattern
+
+css speech bubbles
+
+tail call optimization
+
+multi-paradigm 多范式语言
