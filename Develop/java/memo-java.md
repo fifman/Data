@@ -1,40 +1,260 @@
-gradle
-    gradle build -x test: skip test
-    gradle dependencies --configuration compile: compile dependencies
+# start
+
+## install
+
+1. centos: `yum install java-1.8...` (notice that the version should be "devel" otherwise you will not find "javac")
+
+## environment
+
+1. jenv
+2. /usr/libexec/java_home -V: 查看版本
+
+# groovy
+
+## syntax
+
+### comments
+
+- in-line: `//`
+- multi-line: `/* */` can be put inside codes (e.g. `a = /* xx */ b`)
+- shebang line: `#!/usr/bin/env groovy`
+- doc: `/** */`
+
+### identifiers
+
+- normal identifiers: 
+    * identifier = [letter|$|_][letter|number]*
+    * letter = [a-z,A-Z,'\u00C0'-'\u00D6','\u00D8'-'\u00F6','\u00F8'-'\u00FF','\u0100'-'\uFFFE']
+    * should not start with number
+- quote identifier:
+    * following a dot
+    * can contain illegal characters, e.g. `obj."aa bb" = "xx"`
+
+### String
+
+- single/double quote: `'aaa'` == `"aaa"`
+- triple quote: multi-line, without interpolation: `'''aaa xxx'''`
+
+## grammar
+
+- default imports are already set, no need to declare `import ...`.
+- runtime dispath (multi-methods): method is chosen at runtime by argument types.
+- `{}` is used for closures. Arrays use `[]`.
+- no field modifier: define a property with getter/setter.
+- package private field: annotate with `@PackageScope`.
+
+## command chains
+
+- a b c d == a(b).c(d)
+- `,`, `:`, `.` joins parts together to elements, e.g.:
+    > a b, c d e: f g h.i == a(b, c).d(e: f).g(h.i)
+
+- closures can be used as arguments, e.g.:
+    > a {} b {} c {} == a({}).b({}).c({})
+
+- method with no arguments should use `()`, e.g.:
+    > a b() c d() == a(b()).c(d())
+
+- odd elements means the last one is attribute access, e.g.:
+    > a b c == a(b).c
+
+# gradle
+
+## cli
+
+- `gradle dependencies --configuration compile`: compile dependencies
+
+    >gradle -q dependencies api:dependencies webapp:dependencies
+
+- `gradle help --task test`: help task
+- `gradle -q projects`: show projects info
+- `gradle -q tasks`: show **visible** tasks
+
+    **visible**: By default, shows only those tasks which have been assigned to a task group, so-called visible tasks. You can do this by setting the group property for the task. You can also set the description property, to provide a description to be included in the report
+
+    ```groovy
+    dists {
+        description = 'Builds the distribution'
+        group = 'build'
+    }
+    ```
+
+    `-all`: shows **hidden** tasks
+
+- `gradle dependencyInsight`: give insight of dependencies
+    
+    >gradle -q webapp:dependencyInsight --dependency groovy --configuration compile
+
+- `gradle properties`: show project properties
+
+- `--profile`     : give reports to build
+- `-m`            : dry run, only show tasks which will be run, do not actually run tasks
+- `-x`            : skip test
+- `--continue`    : continue tasks over failed ones
+- `-b`            : choose build file
+- `-p`            : choose build root folder
+- `--rerun-tasks` : force tasks to rerun regardless of cache
+
+## console
+
+### build output
+
+- After gradle 4.0, outputs are reduced. `--console=plain` can give outputs unreduced.
+- outputs are grouped for parallel execution.
+- parallel execution may cause output broken up, but each output block will have indication to tasks.
+
+### works in-progress
+
+- workers in parallel executions: number of workers defaults to number of processors on the machine executing the build.
+- parallel execute tasks, workers unused are marked `IDLE`
+
+## gradle wrapper
+
+- wrapper should **check** into version control
+- `gradle wrapper`: init wrapper to project
+- config `wrapper` task:
+    
+    ```groovy
+    task wrapper(type: Wrapper) {
+        gradleVersion = '2.0'
+    }
+    ```
+
+## gradle daemon
+
+- `--status`: check daemon status
+- disable daemon: append sentence:
+
+    > org.gradle.daemon=false
+
+    to `${USER_HOME}/.gradle/gradle.properties`
+
+- `--stop`: stop **all** daemons with the **same version** of gradle running the command
+    > jps  
+
+- `--daemon`/`--no-daemon`: enable/disable daemon in build
+- new daemons may be created if not idle or not compatible (e.g. heap size not satisfied)
+
+## dependency
+
+### configuration
+
+- configuration: a set of dependencies and artifacts (input and output)
+- default configurations:
+    * implementation: declaring dependencies
+    * runtimeClasspath: resloving dependencies
+    * apiElement: publish artifacts
+
+### external dependency
+
+```groovy
+dependencies {
+    compile group: 'org.hibernate', name: 'hibernate-core', version: '3.6.7.Final'
+    compile 'org.hibernate:hibernate-core:3.6.7.Final'
+}
+```
+
+### repository
 
 
-安装：
+```groovy
+repositories {
+    maven {
+        // URL can refer to a local directory
+        url "../local-repo"
+        url "http://repo.mycompany.com/maven2"            
+        mavenCentral()            
+    }
+}
+```
+
+### publishing artifacts
+
+```groovy
+uploadArchives {
+    repositories {
+        ivy {
+            credentials {
+                username "username"
+                password "pw"
+            }
+            url "http://repo.mycompany.com"
+        }
+    }
+}
+```
+
+run `gradle uploadArchives`
+
+## multi-project build
+
+### structure
+
+root or master dir:
+- settings.gradle: describe how the project and sub-projects are structured
+- build.gradle: build config
+- child dirs with `*.gradle` file (not necessarily)
+
+set `rootProject.name` 
+
+### run task
+
+To see a list of the tasks of a project, run gradle `<project-path>:tasks`
+For example, try running `gradle :api:tasks`
+
+root build.gralde share settings to child configs
+
+run sub-project task: `gradle :services:webservice:build`
+
+run task in a dir will run all tasks in sub-dir. If use wrapper, should use `../../gradlew build`
+
+## build script
+
+### project and task
+
+project: a set of things to be done
+task: atomic piece of work
+
+
+
+
+
+# java environment
+
+## 安装：
 
 brew tap caskroom/versions
 brew install java7
 brew install java6
 
+# 基础
 
-String处理
-    String对象不可修改。因此诸如"aa"+"bb"+"cc"的连续操作时，其实可能是（根据JVM不同实现可能不一样）先生成了"aa"+"bb"的结果的临时对象，然后生成结果。
-    编译器有可能自动采取聪明的做法，内部使用StringBuilder。
-    即使如此，显式调用StringBuilder更能保证性能。因为编译器不能保证它能“聪明”地在所有情况下使用StringBuilder。例如在循环时，每次循环都会新生成StringBuilder。
-    StringBuffer.append()性能比StringBuilder要低，但能保证操作原子性。
-    预先指定StringBuffer大小可避免多次重新分配缓冲。
-    
+### String处理
+
+String对象不可修改。因此诸如"aa"+"bb"+"cc"的连续操作时，其实可能是（根据JVM不同实现可能不一样）先生成了"aa"+"bb"的结果的临时对象，然后生成结果。
+编译器有可能自动采取聪明的做法，内部使用StringBuilder。
+即使如此，显式调用StringBuilder更能保证性能。因为编译器不能保证它能“聪明”地在所有情况下使用StringBuilder。例如在循环时，每次循环都会新生成StringBuilder。
+
+StringBuffer.append()性能比StringBuilder要低，但能保证操作原子性。
+
+预先指定StringBuffer大小可避免多次重新分配缓冲。
 
 
-后期绑定：
+# 语法
+
+## 后期绑定
 
 java默认后期绑定，调用方法时，实际调用的代码最后时刻才被确定。编译器确保方法存在并执行类型检查，但此时不知道确切代码。因此可以实现向上转型。
 非面向对象编程使用前期绑定，编译器知道具体执行代码绝对地址。
 c++默认前期绑定，使用virtual关键字才能实现后期绑定。
 
-单根继承：
+## 单根继承
 
 所有java类继承Object。c++则不是。
 
 参数化类型（泛型）
 
-
-
-
-对象标识符：
+## 对象标识符：
 
 对象的引用。例如：
 String s;
@@ -42,20 +262,8 @@ String s;
 创建数组对象实际上是创建了一个引用数组，每个引用被自动初始化为null。
 也可以创建基本数据类型的数组。
 
-存储位置：
-
-寄存器：java不能直接控制。
-堆栈：java对象不存储，对象引用在里面。
-堆：所有java对象存储位置。
-
-常量通常直接放在程序代码内部。
-基本类型变量不是引用，直接存储值，放在堆栈中。
-基本类型包装器类可在堆中创建对象。
-
 java所有数值类型都有正负号
 高精度数值类BigDecimal和BigInteger没有对应的基本类型。高精度支持任意精度。
-
-
 
 作用域：
 作用域由花括号{}决定。决定了内部定义的变量名（引用）的生命周期。
@@ -111,16 +319,68 @@ boolean ? v1 : v2
 
 按位操作符：& |  逻辑操作符：&& ||
 
-
-java文件：编译单元compile unit。每个编译单元内只能有唯一的public类，类名必须和文件名相同。
-
-java解释器根据环境变量classpath找类文件。如果类在一个文件夹下，直接放地址。如果是jar包，地址需要包含jar本身的文件名。classpath中包含"."，解释器就会找当前目录。
+## 修饰符
 
 private指除了包含此成员的类，其它任何类都无法访问。
 protected提供包访问权限。同包类可以访问。
 类不可以private或protected，内部类除外。
 
 没有public修饰的类，其static成员如果是public，还是可以被外部访问。
+
+
+# JVM
+
+## 存储位置
+
+寄存器：java不能直接控制。
+堆栈：java对象不存储，对象引用在里面。
+堆：所有java对象存储位置。
+
+常量通常直接放在程序代码内部。
+基本类型变量不是引用，直接存储值，放在堆栈中。
+基本类型包装器类可在堆中创建对象。
+
+# middleware
+
+
+## tomcat
+
+tomcat install:
+1. download
+2. dir: /usr/local/tomcat
+3. 用户\组创建
+4. systemctl 
+5. tomcat user setting
+6. tomcat manager app META-INF/context.xml setting
+
+## rmi
+
+java.rmi.ConnectException: Connection refused to host: 127.0.0.1;
+需要设置-Djava.rmi.server.hostname=myserver.com
+
+## weblogic
+
+### weblogic install
+
+#### linux install
+
+1. add `-Dweblogic.management.allowPasswordEcho=true` to domain creating command
+1. add `-Djava.security.egd=file:/dev/./urandom` to  ${DOMAIN_HOME}/bin/startWeblogic.sh, in start command
+2. add `USER_MEM_ARGS="-Xms1024m -Xmx1024m -XX:MaxPermSize=512m"` to ${DOMAIN_HOME}/bin/setDomainEnv.sh, before `USER_MEM_ARGS=${USER_MEM_ARGS} ...`
+
+
+weblogic password change:
+1. 删除adminserver下所有文件
+2. 新建security文件夹
+3. 创建boot.properties文件
+4. 写入
+    username=xxx
+    password=xxx
+
+
+java文件：编译单元compile unit。每个编译单元内只能有唯一的public类，类名必须和文件名相同。
+
+java解释器根据环境变量classpath找类文件。如果类在一个文件夹下，直接放地址。如果是jar包，地址需要包含jar本身的文件名。classpath中包含"."，解释器就会找当前目录。
 
 打印时，对象toString()方法可以在对象本身为null时调用，输出null。（存疑，需测试）
 
@@ -516,24 +776,3 @@ JVM:
             类、数组、接口
 
 
-
-tomcat install:
-1. download
-2. dir: /usr/local/tomcat
-3. 用户\组创建
-4. systemctl 
-5. tomcat user setting
-6. tomcat manager app META-INF/context.xml setting
-
-
-weblogic password change:
-1. 删除adminserver下所有文件
-2. 新建security文件夹
-3. 创建boot.properties文件
-4. 写入
-    username=xxx
-    password=xxx
-
-gradle:
-
-gradle help --task test: 

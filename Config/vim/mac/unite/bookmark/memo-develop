@@ -1,4 +1,7 @@
 0.1.0
+go	/Users/fifman/Data/Develop/go/memo-go.md	1	^# basic$
+ruby	/Users/fifman/Data/Develop/ruby/memo-ruby.md	6	^2\. 注意不能用ssl，需要使用\[http连接\](http://gems\.ruby-china\.org)。这是ruby的一个问题，官方有\[解决方案\](http://guides\.rubygems\.org/ssl-certificate-update/#installing-using-update-packages)，但需要手动安装gems。$
+memo-java	/Users/fifman/Data/Develop/java/memo-java.md	1	^gradle$
 python	/Users/fifman/Data/Develop/python/memo-python.txt		
 jvm	/Users/fifman/Data/Develop/java/memo-jvm.txt	3	^        不同线程有不同的程序计数器，互不影响$
 spring	/Users/fifman/Data/Develop/java/memo-spring.md	8	^$
@@ -7,7 +10,6 @@ memo-redis	/Users/fifman/Data/Develop/Redis/memo-redis.txt	10	^    no empty coll
 linux-basic	/Users/fifman/Data/Develop/linux/basic.txt	2	^$
 computer	/Users/fifman/Data/Develop/computer/notes.txt	13	^multicast：组播，多点传送。1-n或者n-n的信息同时发送（例如视频网络会议等）。$
 memo-tools	/Users/fifman/Data/Develop/linux/memo-tools.txt		
-java	/Users/fifman/Data/Develop/java/memo-java.txt	1	^后期绑定：$
 js	/Users/fifman/Data/Develop/javascript/memo-javascript.txt	1	^javascript补全需要在用户目录设置\.tern-config或者在项目根目录设置\.tern-project文件。$
 init-mongodb	/Users/fifman/Data/Develop/mongodb/init-mongodb.js	30	^db2\.accounts\.bank\.ccb\.insert({ _id: 1, card_no: 4895920340414134, expire_year: 2020, expire_month: 9, owner_name: \"FENG YI CHENG\", security_code: 519, type: \"visa\" })$
 mongodb	/Users/fifman/Data/Develop/mongodb/memo-mongodb.txt	1	^在windows环境下需要设置环境变量$

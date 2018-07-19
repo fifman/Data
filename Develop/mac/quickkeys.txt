@@ -1,0 +1,5 @@
+clear dns cache:
+sudo dscacheutil -flushcache; sudo killall -HUP mDNSResponder; say DNS cache flushed
+
+sudo launchctl unload -w /System/Library/LaunchDaemons/com.apple.mDNSResponder.plist
+sudo launchctl load -w /System/Library/LaunchDaemons/com.apple.mDNSResponder.plist

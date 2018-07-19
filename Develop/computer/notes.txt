@@ -94,3 +94,25 @@ css speech bubbles
 tail call optimization
 
 multi-paradigm 多范式语言
+
+shebang #!
+
+identifier 标识符
+
+gibberish 乱码
+
+first-class function  函数作为头等公民（函数式）
+
+acid 原子性、一致性、隔离性、持久性
+
+base
+
+base Basically avaliable, soft state, eventually consistent
+
+superset 数据可视化
+
+cloudera 容器管理
+
+apache-amber
+
+oozie 云
