@@ -35,3 +35,6 @@ i模式下能中文输入，其它模式下屏蔽。
 
 voting 网站
     查看历史分段统计，趋势
+
+vim-color-palette
+    choose color

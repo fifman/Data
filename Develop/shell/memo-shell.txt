@@ -55,3 +55,9 @@ yum update vim*
 install epel:
 
 sudo yum install epel-release
+
+install rcm:
+
+cd /etc/yum.repos.d/
+wget https://download.opensuse.org/repositories/utilities/RHEL_7/utilities.repo
+yum install -y rcm
