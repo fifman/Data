@@ -36,6 +36,7 @@ ssh keygen:
 ssh-keygen -t rsa -b 4096 -f [filename]
 ssh-add [filename] # add to ssh-agent
 ssh-copy-id -i ~/.ssh/tatu-key-ecdsa user@host
+ssh-keygen -R ip: remove corrupt key
 
 certificates:
 
@@ -61,3 +62,11 @@ install rcm:
 cd /etc/yum.repos.d/
 wget https://download.opensuse.org/repositories/utilities/RHEL_7/utilities.repo
 yum install -y rcm
+
+iptables:
+
+iptables -A INPUT -p tcp --dport 6881 -j ACCEPT
+service iptables save
+
+zsh:
+word splitting for position parameters should use `$=param`, not `$param`

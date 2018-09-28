@@ -101,3 +101,5 @@ p 在文件2的光标所在处粘贴所拷贝的行
 :noh : cancel search highlight
 
 /^\_s$   : delete blank lines which are not previous to a non-blank line.
+
+:%s/\(\(sudo\)\|\s\|$\|#\)\@!/sudo /g: 添加sudo

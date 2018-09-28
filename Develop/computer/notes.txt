@@ -116,3 +116,6 @@ cloudera 容器管理
 apache-amber
 
 oozie 云
+
+operand 运算元（参数）
+operator 运算符（计算）

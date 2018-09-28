@@ -13,3 +13,9 @@ sudo mkdir /Library/Perl/5.18/auto
 sudo ln -s /Applications/Xcode.app/Contents/Developer/Library/Perl/5.18/darwin-thread-multi-2level/SVN /Library/Perl/5.18/darwin-thread-multi-2level
 sudo ln -s /Applications/Xcode.app/Contents/Developer/Library/Perl/5.18/darwin-thread-multi-2level/auto/SVN /Library/Perl/5.18/auto/
 ```
+
+```bash
+git config http.sslCAInfo /etc/ssl/certs/traefik.crt
+
+GIT_SSL_CAINFO=/etc/ssl/certs/traefik.crt git clone https://gogs.msplat.io/fifman/goutils.git
+```
