@@ -1,3 +1,6 @@
+npm: PHANTOMJS_CDNURL=http://npm.taobao.org/dist/phantomjs npm install  解决phantomjs安装慢的问题
+
+
 javascript补全需要在用户目录设置.tern-config或者在项目根目录设置.tern-project文件。
 
 ECMAScript区分大小写！

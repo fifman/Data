@@ -10,3 +10,63 @@ sudo firewall-cmd --reload 防火墙修改设置后生效
 zip -r zipname dirname: zip a directory
 
 diff -r dir1 dir2 compare two directories
+
+ag 'regex' /path  : ag search with regex pattern
+
+upgrade vim in brew with pyenv: should set `pyenv shell system` first!
+
+ctrl-z      : 暂停job
+jobs        : 显示jobs
+bg jobs序号 : 后台运行
+
+
+
+install telnet:
+
+curl https://ftp.gnu.org/gnu/inetutils/inetutils-1.9.4.tar.xz -O
+tar -zxvf inetutils-1.9.4.tar.xz
+cd inetutils-1.9.4
+./configure --prefix=/usr/local --disable-servers --disable-hostname \
+--disable-ping --disable-ping6 --disable-logger --disable-talk \
+--disable-tftp --disable-whois --disable-ifconfig --disable-traceroute
+make -j8
+sudo make install
+
+ssh keygen:
+ssh-keygen -t rsa -b 4096 -f [filename]
+ssh-add [filename] # add to ssh-agent
+ssh-copy-id -i ~/.ssh/tatu-key-ecdsa user@host
+ssh-keygen -R ip: remove corrupt key
+
+certificates:
+
+openssl genrsa -out server.key 2048 openssl rsa -in server.key -out server.key
+openssl req -sha256 -new -key server.key -out server.csr -subj '/CN=localhost'
+openssl x509 -req -sha256 -days 365 -in server.csr -signkey server.key -out server.crt
+
+cp traefik.crt /etc/pki/ca-trust/source/anchors/
+sudo update-ca-trust
+
+install vim8:
+
+curl -L https://copr.fedorainfracloud.org/coprs/mcepl/vim8/repo/epel-7/mcepl-vim8-epel-7.repo -o /etc/yum.repos.d/mcepl-vim8-epel-7.repo
+
+yum update vim*
+
+install epel:
+
+sudo yum install epel-release
+
+install rcm:
+
+cd /etc/yum.repos.d/
+wget https://download.opensuse.org/repositories/utilities/RHEL_7/utilities.repo
+yum install -y rcm
+
+iptables:
+
+iptables -A INPUT -p tcp --dport 6881 -j ACCEPT
+service iptables save
+
+zsh:
+word splitting for position parameters should use `$=param`, not `$param`

@@ -6,3 +6,19 @@ apt list --installed
 
 pid location: /var/run
 
+
+# vim 
+
+## install
+
+...
+
+## update 
+
+```bash
+curl -L https://copr.fedorainfracloud.org/coprs/mcepl/vim8/repo/epel-7/mcepl-vim8-epel-7.repo -o /etc/yum.repos.d/mcepl-vim8-epel-7.repo
+
+yum update vim
+```
+
+find / -name 'filebeat.yml' -type f 2>/dev/null

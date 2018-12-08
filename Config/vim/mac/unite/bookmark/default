@@ -1,0 +1,2 @@
+0.1.0
+	/Users/fifman/.vimrc	433	^\"let g:syntastic_vim_checkers = \['vint'\]$
